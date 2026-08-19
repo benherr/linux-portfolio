@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: #090a18;
+  color: #f1f5f9;
+  overflow: hidden;
+}
+
+/* Custom Glass Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0f22;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #282d54;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff9e3b;
+}
+
+/* Caret blinking */
+.caret-ninja-gold {
+  caret-color: #ff9e3b;
+}
+
+/* Custom Glass Panels */
+.glass-panel {
+  background: rgba(19, 22, 48, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(40, 45, 84, 0.8);
+}

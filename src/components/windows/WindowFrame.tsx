@@ -1,0 +1,169 @@
+"use client";
+
+import React, { useState, useRef } from "react";
+import { WindowState, ThemeMode, AccentColor } from "@/types/os";
+import { Minus, Square, Copy, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { ACCENT_MAP } from "@/utils/theme";
+
+interface WindowFrameProps {
+  windowState: WindowState;
+  themeMode?: ThemeMode;
+  accentColor?: AccentColor;
+  glassOpacity?: number;
+  onClose: (id: WindowState["id"]) => void;
+  onFocus: (id: WindowState["id"]) => void;
+  onMinimize: (id: WindowState["id"]) => void;
+  onMaximize: (id: WindowState["id"]) => void;
+  onPositionChange: (id: WindowState["id"], pos: { x: number; y: number }) => void;
+  children: React.ReactNode;
+}
+
+export const WindowFrame: React.FC<WindowFrameProps> = ({
+  windowState,
+  themeMode = "dark",
+  accentColor = "match",
+  glassOpacity = 65,
+  onClose,
+  onFocus,
+  onMinimize,
+  onMaximize,
+  onPositionChange,
+  children,
+}) => {
+  const [isDragging, setIsDragging] = useState(false);
+  const dragRef = useRef<HTMLDivElement>(null);
+  const accent = ACCENT_MAP[accentColor] || ACCENT_MAP.match;
+  const isLight = themeMode === "light";
+
+  if (!windowState.isOpen || windowState.isMinimized) {
+    return null;
+  }
+
+  // Calculate live window glass opacity & blur filter values
+  const opacityFraction = (glassOpacity / 100).toFixed(2);
+  const blurPx = Math.round(glassOpacity / 4);
+
+  const containerBg = isLight
+    ? `rgba(248, 250, 252, ${opacityFraction})`
+    : `rgba(18, 14, 36, ${opacityFraction})`;
+
+  const headerBg = isLight
+    ? `rgba(226, 232, 240, ${Math.min(1, parseFloat(opacityFraction) + 0.15)})`
+    : `rgba(24, 18, 48, ${Math.min(1, parseFloat(opacityFraction) + 0.15)})`;
+
+  return (
+    <motion.div
+      ref={dragRef}
+      initial={false}
+      animate={{
+        x: windowState.isMaximized ? 0 : windowState.position.x,
+        y: windowState.isMaximized ? 0 : windowState.position.y,
+        width: windowState.isMaximized ? "100vw" : windowState.size.width,
+        height: windowState.isMaximized ? "calc(100vh - 36px)" : windowState.size.height,
+      }}
+      transition={{ duration: 0.15, ease: "easeOut" }}
+      style={{
+        zIndex: windowState.zIndex,
+        backgroundColor: containerBg,
+        backdropFilter: `blur(${blurPx}px)`,
+        WebkitBackdropFilter: `blur(${blurPx}px)`,
+      }}
+      onClick={() => onFocus(windowState.id)}
+      className={`fixed top-9 left-0 flex flex-col rounded-xl overflow-hidden shadow-2xl border transition-colors duration-200 ${
+        windowState.isMaximized ? "rounded-none top-9" : ""
+      } ${
+        isLight
+          ? "border-slate-300 text-slate-900 shadow-slate-400/30"
+          : "border-[#2b2c52] text-slate-100 shadow-black/50"
+      }`}
+    >
+      {/* Window Title Bar Header */}
+      <div
+        style={{ backgroundColor: headerBg }}
+        className={`h-9 px-3.5 flex items-center justify-between select-none cursor-grab active:cursor-grabbing border-b transition-colors ${
+          isLight ? "border-slate-300 text-slate-800" : "border-white/10 text-slate-200"
+        }`}
+        onPointerDown={(e) => {
+          onFocus(windowState.id);
+          setIsDragging(true);
+          const startX = e.clientX - windowState.position.x;
+          const startY = e.clientY - windowState.position.y;
+
+          const onPointerMove = (moveEvent: PointerEvent) => {
+            if (!windowState.isMaximized) {
+              const newX = Math.max(0, Math.min(window.innerWidth - 200, moveEvent.clientX - startX));
+              const newY = Math.max(0, Math.min(window.innerHeight - 100, moveEvent.clientY - startY));
+              onPositionChange(windowState.id, { x: newX, y: newY });
+            }
+          };
+
+          const onPointerUp = () => {
+            setIsDragging(false);
+            window.removeEventListener("pointermove", onPointerMove);
+            window.removeEventListener("pointerup", onPointerUp);
+          };
+
+          window.addEventListener("pointermove", onPointerMove);
+          window.addEventListener("pointerup", onPointerUp);
+        }}
+      >
+        {/* Left: Window Title & Accent Dot */}
+        <div className="flex items-center space-x-2 truncate">
+          <span style={{ color: accent.hex }} className="text-xs">●</span>
+          <span className="text-xs font-mono font-bold tracking-wide truncate">
+            {windowState.title}
+          </span>
+        </div>
+
+        {/* Right: Window Controls (Standard Cursor - No Pointer Change on Hover) */}
+        <div className="flex items-center space-x-2.5 shrink-0 text-slate-400 cursor-default">
+          {/* Minimize */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onMinimize(windowState.id);
+            }}
+            className="hover:text-white p-0.5 rounded transition cursor-default"
+            title="Minimize Window"
+          >
+            <Minus className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Maximize / Restore */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onMaximize(windowState.id);
+            }}
+            className="hover:text-white p-0.5 rounded transition cursor-default"
+            title={windowState.isMaximized ? "Restore Window" : "Maximize Window"}
+          >
+            {windowState.isMaximized ? (
+              <Copy className="w-3 h-3" />
+            ) : (
+              <Square className="w-3 h-3" />
+            )}
+          </button>
+
+          {/* Close */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose(windowState.id);
+            }}
+            className="hover:text-white hover:bg-rose-600/80 p-0.5 rounded transition cursor-default"
+            title="Close Window"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Window Body Container */}
+      <div className="flex-1 overflow-auto scrollbar-thin relative font-sans">
+        {children}
+      </div>
+    </motion.div>
+  );
+};

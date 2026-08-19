@@ -1,0 +1,93 @@
+import { ProjectData } from "@/types/portfolio";
+
+export const projectsData: ProjectData[] = [
+  {
+    id: "decentralized-voting",
+    title: "Decentralized Voting DApp",
+    slug: "decentralized-voting-dapp",
+    shortDescription: "Blockchain-powered secure voting platform with smart contract verification and IPFS candidate storage.",
+    fullDescription:
+      "A decentralized voting application designed to manage voter and candidate registration, admin approvals, voting periods, and transparent result publication using smart contracts on Ethereum. Ensures tamper-resistant vote recording with IPFS storage via Pinata.",
+    technologies: [
+      "Next.js",
+      "React",
+      "Solidity",
+      "Hardhat",
+      "Ethereum",
+      "Ethers.js",
+      "Web3.js",
+      "IPFS",
+      "Pinata",
+      "Tailwind CSS",
+    ],
+    category: "blockchain",
+    isFeatured: true,
+    highlights: [
+      "Cryptographic voting verification & immutable ledger recording",
+      "Decentralized media & metadata storage using IPFS & Pinata",
+      "Role-based Smart Contract access control for election officials & registered voters",
+      "Real-time election statistics & vote count visualization",
+    ],
+    githubUrl: "https://github.com/your-username/decentralized-voting-dapp",
+    demoUrl: "https://decentralized-voting-demo.example.com",
+    status: "Completed",
+  },
+  {
+    id: "ai-agent-automation",
+    title: "Autonomous Task AI Agent",
+    slug: "ai-agent-automation",
+    shortDescription: "LLM-driven autonomous agent workflow executor for code inspection and task orchestration.",
+    fullDescription:
+      "An intelligent autonomous agent framework designed to execute structured technical workflows, analyze codebase diagnostics, interact with APIs, and format security auditing summaries.",
+    technologies: ["Python", "Google Gemini API", "Node.js", "TypeScript", "LangChain", "JSON Schema"],
+    category: "ai",
+    isFeatured: true,
+    highlights: [
+      "Multi-step task decomposition and reasoning loop",
+      "Automated log parsing and diagnostic tool execution",
+      "Custom tool definitions with structured JSON output enforcement",
+    ],
+    githubUrl: "https://github.com/your-username/ai-agent-automation",
+    demoUrl: "https://ai-agent-demo.example.com",
+    status: "Completed",
+  },
+  {
+    id: "ninja-os-portfolio",
+    title: "NinjaOS - Interactive Linux Portfolio",
+    slug: "ninja-os-portfolio",
+    shortDescription: "Custom browser-simulated Linux desktop & terminal portfolio OS.",
+    fullDescription:
+      "A desktop OS experience constructed with Next.js, React, and Tailwind CSS. Simulates Linux kernel boot sequence, multi-window z-index management, bash command engine, virtual filesystem explorer, and cybersecurity operations dashboard.",
+    technologies: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "Framer Motion", "Lucide React"],
+    category: "web",
+    isFeatured: true,
+    highlights: [
+      "Complete window system with minimize, maximize, restore, and drag controls",
+      "Interactive Bash shell emulator supporting custom commands & history",
+      "Cybersecurity dashboard monitor & virtual Linux filesystem viewer",
+      "Fast recruiter view fallback for instant access",
+    ],
+    githubUrl: "https://github.com/your-username/ninja-os-portfolio",
+    demoUrl: "https://ninja-os-portfolio.example.com",
+    status: "Completed",
+  },
+  {
+    id: "cyber-lab-monitor",
+    title: "Cybersecurity Lab & Firewall Monitor",
+    slug: "cyber-lab-monitor",
+    shortDescription: "Simulated security operations center dashboard for network monitoring and threat analysis.",
+    fullDescription:
+      "A security operations center (SOC) dashboard UI built to simulate real-time firewall activity, SSH session monitoring, port audit alerts, and network telemetry analysis for virtual Linux lab environments.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Recharts", "Bash", "Linux Syslog Parser"],
+    category: "security",
+    isFeatured: false,
+    highlights: [
+      "Simulated syslog parsing & threat event scoring",
+      "Interactive firewall rule toggle & port listening list",
+      "Network bandwidth & packet metric visualizers",
+    ],
+    githubUrl: "https://github.com/your-username/cyber-lab-monitor",
+    demoUrl: "https://cyber-lab-demo.example.com",
+    status: "In Development",
+  },
+];
