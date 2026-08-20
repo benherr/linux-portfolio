@@ -15,55 +15,7 @@ import {
   RotateCw,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-export interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  genre: string;
-  streamUrl: string;
-  duration: string;
-  coverBg: string;
-}
-
-export const TRACK_LIST: Track[] = [
-  {
-    id: "my-song-1",
-    title: "Custom Song 1",
-    artist: "Benher Basheer",
-    genre: "Local MP3 (/public/music/song1.mp3)",
-    streamUrl: "/music/song1.mp3",
-    duration: "MP3",
-    coverBg: "from-[#24133b] via-purple-950 to-rose-950",
-  },
-  {
-    id: "my-song-2",
-    title: "Custom Song 2",
-    artist: "Benher Basheer",
-    genre: "Local MP3 (/public/music/song2.mp3)",
-    streamUrl: "/music/song2.mp3",
-    duration: "MP3",
-    coverBg: "from-amber-900 via-rose-950 to-slate-900",
-  },
-  {
-    id: "kerala-monsoon",
-    title: "Monsoon Rain & Chill Beats",
-    artist: "NinjaOS Lofi Lab",
-    genre: "Malayalam Chill / Lo-Fi Stream",
-    streamUrl: "https://stream.zeno.fm/f3wvbbqmdg8uv",
-    duration: "LIVE",
-    coverBg: "from-emerald-900 via-teal-900 to-slate-900",
-  },
-  {
-    id: "synthwave-drive",
-    title: "Neon Highway Sunset",
-    artist: "Cyber Synth",
-    genre: "Synthwave Stream",
-    streamUrl: "https://stream.zeno.fm/0r0xa792kwzuv",
-    duration: "LIVE",
-    coverBg: "from-[#24133b] via-purple-950 to-rose-950",
-  },
-];
+import { TRACK_LIST, Track } from "@/data/music";
 
 export const MusicPlayerWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -178,7 +130,7 @@ export const MusicPlayerWidget: React.FC = () => {
 
             {/* Track Album Banner */}
             <div
-              className={`p-4 rounded-xl bg-gradient-to-r ${activeTrack.coverBg} border border-white/10 flex items-center space-x-3 shadow-inner`}
+              className={`p-4 rounded-xl bg-gradient-to-r ${activeTrack.coverBg || "from-slate-900 to-indigo-950"} border border-white/10 flex items-center space-x-3 shadow-inner`}
             >
               <div
                 className={`w-12 h-12 rounded-full border-2 border-[#e2b714]/60 bg-[#090a18] flex items-center justify-center shrink-0 shadow-lg relative ${
@@ -274,9 +226,9 @@ export const MusicPlayerWidget: React.FC = () => {
             {/* Track Selector List */}
             <div className="pt-2 space-y-1.5 border-t border-[#2b2c52]">
               <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
-                Select Audio Track / Stream
+                Select Audio Track / MP3
               </div>
-              <div className="space-y-1">
+              <div className="space-y-1 max-h-48 overflow-y-auto scrollbar-thin pr-1">
                 {TRACK_LIST.map((tr, idx) => (
                   <button
                     key={tr.id}

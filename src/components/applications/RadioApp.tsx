@@ -1,48 +1,17 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Radio as RadioIcon, Play, Pause, SkipForward, Volume2, VolumeX, Disc, Sparkles } from "lucide-react";
-
-export interface RadioStation {
-  id: string;
-  name: string;
-  genre: string;
-  streamUrl: string;
-  nowPlaying: string;
-}
-
-export const STATIONS: RadioStation[] = [
-  {
-    id: "lofi-chill",
-    name: "Lofi Cyber Beats",
-    genre: "Lo-Fi / Chillhop",
-    streamUrl: "https://stream.zeno.fm/f3wvbbqmdg8uv",
-    nowPlaying: "Midnight Code Session • Lofi Beats",
-  },
-  {
-    id: "synthwave",
-    name: "Synthwave Night Drive",
-    genre: "Retrowave / Synth",
-    streamUrl: "https://stream.zeno.fm/0r0xa792kwzuv",
-    nowPlaying: "Neon Horizon • Synthwave Stream",
-  },
-  {
-    id: "ambient-code",
-    name: "Ambient Focus Stream",
-    genre: "Ambient / Deep Focus",
-    streamUrl: "https://stream.zeno.fm/4b5wv213kg8uv",
-    nowPlaying: "Deep Thought & Flow State • Ambient",
-  },
-];
+import { Radio as RadioIcon, Play, Pause, SkipForward, Volume2, VolumeX, Disc, Music } from "lucide-react";
+import { TRACK_LIST } from "@/data/music";
 
 export const RadioApp: React.FC = () => {
-  const [currentStationIndex, setCurrentStationIndex] = useState<number>(0);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.7);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const activeStation = STATIONS[currentStationIndex];
+  const activeTrack = TRACK_LIST[currentTrackIndex];
 
   useEffect(() => {
     if (audioRef.current) {
@@ -61,9 +30,9 @@ export const RadioApp: React.FC = () => {
     }
   };
 
-  const nextStation = () => {
-    const nextIdx = (currentStationIndex + 1) % STATIONS.length;
-    setCurrentStationIndex(nextIdx);
+  const nextTrack = () => {
+    const nextIdx = (currentTrackIndex + 1) % TRACK_LIST.length;
+    setCurrentTrackIndex(nextIdx);
     setIsPlaying(false);
     setTimeout(() => {
       if (audioRef.current) {
@@ -76,7 +45,7 @@ export const RadioApp: React.FC = () => {
   return (
     <div className="p-4 sm:p-6 space-y-6 text-slate-200 font-sans select-none">
       {/* Hidden HTML5 Audio element */}
-      <audio ref={audioRef} src={activeStation.streamUrl} preload="none" />
+      <audio ref={audioRef} src={activeTrack.streamUrl} preload="none" />
 
       {/* Radio Header */}
       <div className="flex items-center space-x-3 p-4 rounded-xl bg-[#13142e] border border-[#2b2c52] shadow-2xl">
@@ -85,9 +54,9 @@ export const RadioApp: React.FC = () => {
         </div>
         <div>
           <h1 className="text-base sm:text-lg font-bold text-white font-mono">
-            NinjaOS Radio Player
+            NinjaOS Audio & Radio Player
           </h1>
-          <p className="text-xs text-slate-400">Curated background Lo-Fi & Synthwave audio streams</p>
+          <p className="text-xs text-slate-400">Play your custom MP3 songs or curated audio streams</p>
         </div>
       </div>
 
@@ -104,9 +73,9 @@ export const RadioApp: React.FC = () => {
             <div className="w-6 h-6 rounded-full bg-[#181a3d] border-2 border-[#e2b714] absolute" />
           </div>
           <div className="text-center space-y-1">
-            <h2 className="text-base font-bold text-white font-mono">{activeStation.name}</h2>
-            <p className="text-xs text-[#e2b714] font-mono">{activeStation.genre}</p>
-            <p className="text-[11px] text-slate-400 font-sans italic">{activeStation.nowPlaying}</p>
+            <h2 className="text-base font-bold text-white font-mono">{activeTrack.title}</h2>
+            <p className="text-xs text-[#e2b714] font-mono">{activeTrack.artist}</p>
+            <p className="text-[11px] text-slate-400 font-sans italic">{activeTrack.genre}</p>
           </div>
         </div>
 
@@ -120,9 +89,9 @@ export const RadioApp: React.FC = () => {
           </button>
 
           <button
-            onClick={nextStation}
+            onClick={nextTrack}
             className="p-3 rounded-full bg-[#1d1e42] hover:bg-[#282a5c] border border-[#2b2c52] text-slate-300 hover:text-white transition cursor-pointer"
-            title="Next Station"
+            title="Next Track"
           >
             <SkipForward className="w-5 h-5" />
           </button>
@@ -148,17 +117,17 @@ export const RadioApp: React.FC = () => {
         </div>
       </div>
 
-      {/* Station List */}
+      {/* Track List */}
       <div className="space-y-2">
         <h3 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
-          Available Stations
+          Available Audio Tracks & Streams
         </h3>
         <div className="space-y-1.5">
-          {STATIONS.map((st, idx) => (
+          {TRACK_LIST.map((tr, idx) => (
             <button
-              key={st.id}
+              key={tr.id}
               onClick={() => {
-                setCurrentStationIndex(idx);
+                setCurrentTrackIndex(idx);
                 setIsPlaying(false);
                 setTimeout(() => {
                   if (audioRef.current) {
@@ -168,19 +137,19 @@ export const RadioApp: React.FC = () => {
                 }, 200);
               }}
               className={`w-full p-3 rounded-xl border flex items-center justify-between transition text-left cursor-pointer ${
-                currentStationIndex === idx
+                currentTrackIndex === idx
                   ? "bg-[#1d1e42] border-[#e2b714]/60 text-white shadow-glow-gold"
                   : "bg-[#13142e]/60 border-[#2b2c52] hover:bg-[#181a3d] text-slate-300"
               }`}
             >
               <div className="flex items-center space-x-3">
-                <RadioIcon className={`w-4 h-4 ${currentStationIndex === idx ? "text-[#e2b714]" : "text-slate-500"}`} />
+                <Music className={`w-4 h-4 ${currentTrackIndex === idx ? "text-[#e2b714]" : "text-slate-500"}`} />
                 <div>
-                  <div className="text-xs font-bold font-mono">{st.name}</div>
-                  <div className="text-[10px] text-slate-400">{st.genre}</div>
+                  <div className="text-xs font-bold font-mono">{tr.title}</div>
+                  <div className="text-[10px] text-slate-400">{tr.artist} • {tr.genre}</div>
                 </div>
               </div>
-              {currentStationIndex === idx && isPlaying && (
+              {currentTrackIndex === idx && isPlaying && (
                 <span className="text-[10px] font-mono text-[#e2b714] bg-[#e2b714]/10 border border-[#e2b714]/40 px-2 py-0.5 rounded">
                   PLAYING
                 </span>
