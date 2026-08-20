@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Github, Linkedin, Lock, RotateCw, ExternalLink, Globe, Star, GitFork, Award, CheckCircle, Shield } from "lucide-react";
+import { Github, Linkedin, Lock, RotateCw, ExternalLink, Star, GitFork, Award, CheckCircle, User } from "lucide-react";
 import { contactData } from "@/data/contact";
+import { profileData } from "@/data/profile";
 
 interface SocialBrowserAppProps {
   type: "github" | "linkedin";
@@ -13,6 +14,8 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
     type === "github" ? "https://github.com/benherr" : "https://www.linkedin.com/in/benher-basheer/"
   );
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+  const [githubAvatarError, setGithubAvatarError] = useState(false);
+  const [linkedinAvatarError, setLinkedinAvatarError] = useState(false);
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -58,8 +61,17 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Profile Header */}
             <div className="p-6 rounded-2xl bg-[#13142e] border border-[#2b2c52] shadow-2xl flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
-              <div className="w-24 h-24 rounded-full border-4 border-[#ff9e3b] bg-[#080918] flex items-center justify-center shrink-0 shadow-xl">
-                <Github className="w-12 h-12 text-[#ff9e3b]" />
+              <div className="w-24 h-24 rounded-full border-4 border-[#ff9e3b] bg-[#080918] flex items-center justify-center shrink-0 shadow-xl overflow-hidden">
+                {!githubAvatarError ? (
+                  <img
+                    src={profileData.avatarUrl || "/avatar.png"}
+                    alt="BENHER GitHub Avatar"
+                    className="w-full h-full object-cover"
+                    onError={() => setGithubAvatarError(true)}
+                  />
+                ) : (
+                  <Github className="w-12 h-12 text-[#ff9e3b]" />
+                )}
               </div>
 
               <div className="space-y-2 text-center sm:text-left flex-1">
@@ -144,8 +156,17 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
             <div className="rounded-2xl bg-[#13142e] border border-[#2b2c52] shadow-2xl overflow-hidden">
               <div className="h-28 bg-gradient-to-r from-sky-900 via-indigo-900 to-slate-900 relative" />
               <div className="p-6 pt-0 relative flex flex-col sm:flex-row items-center sm:items-end space-y-4 sm:space-y-0 sm:space-x-6 -mt-12">
-                <div className="w-24 h-24 rounded-full border-4 border-[#0b0d1e] bg-[#0b0d1e] flex items-center justify-center shrink-0 shadow-2xl">
-                  <Linkedin className="w-12 h-12 text-sky-400" />
+                <div className="w-24 h-24 rounded-full border-4 border-[#0b0d1e] bg-[#0b0d1e] flex items-center justify-center shrink-0 shadow-2xl overflow-hidden">
+                  {!linkedinAvatarError ? (
+                    <img
+                      src={profileData.avatarUrl || "/avatar.png"}
+                      alt="Benher Basheer LinkedIn Avatar"
+                      className="w-full h-full object-cover rounded-full"
+                      onError={() => setLinkedinAvatarError(true)}
+                    />
+                  ) : (
+                    <Linkedin className="w-12 h-12 text-sky-400" />
+                  )}
                 </div>
 
                 <div className="space-y-1 text-center sm:text-left flex-1">
@@ -166,7 +187,7 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
                       Connect on LinkedIn
                     </a>
                   </div>
-                  <p className="text-xs text-slate-300 font-sans">Kerala, India • Open to Network</p>
+                  <p className="text-xs text-slate-300 font-sans">College of Engineering Vadakara • Kerala, India</p>
                 </div>
               </div>
             </div>
@@ -175,14 +196,15 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
             <div className="p-6 rounded-2xl bg-[#13142e] border border-[#2b2c52] space-y-4">
               <h2 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
                 <Award className="w-4 h-4 text-sky-400" />
-                <span>Professional Experience & Skills</span>
+                <span>Professional Experience & Education</span>
               </h2>
 
               <div className="space-y-4 text-xs font-sans text-slate-300">
                 <div className="p-4 rounded-xl bg-[#090b1e] border border-[#2b2c52] space-y-1">
                   <div className="font-bold text-white font-mono">Software Engineer & Full-Stack Developer</div>
+                  <div className="text-[#ff9e3b] font-mono text-[11px]">{profileData.education.institution}</div>
                   <p className="text-slate-300 leading-relaxed pt-1">
-                    Designing full-stack web applications, Linux security environments, and modern desktop experiences.
+                    MCA Graduate from {profileData.education.institution} specializing in full-stack web development, Linux systems, and modern desktop experiences.
                   </p>
                 </div>
 

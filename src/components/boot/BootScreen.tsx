@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { BootLog, BootStage } from "@/hooks/useBootSequence";
 import { User, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { profileData } from "@/data/profile";
 
 interface BootScreenProps {
   bootStage: BootStage;
@@ -20,6 +21,8 @@ export const BootScreen: React.FC<BootScreenProps> = ({
   onCompleteLogin,
   onSkip,
 }) => {
+  const [imageError, setImageError] = useState(false);
+
   if (bootStage === "complete") return null;
 
   return (
@@ -95,11 +98,20 @@ export const BootScreen: React.FC<BootScreenProps> = ({
                 <div className="absolute -inset-2 bg-gradient-to-r from-[#ff9e3b] via-purple-500 to-rose-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition duration-500 group-hover:scale-105" />
 
                 {/* Profile Circle */}
-                <div className="relative w-36 h-36 rounded-full bg-[#0d0f22] border-4 border-[#ff9e3b] p-1.5 shadow-2xl flex items-center justify-center overflow-hidden transition transform group-hover:scale-105">
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-[#1d1e42] to-[#090b1e] flex flex-col items-center justify-center relative">
-                    <User className="w-16 h-16 text-[#ff9e3b]" />
-                    <Sparkles className="w-4 h-4 text-amber-300 absolute top-3 right-3 animate-pulse" />
-                  </div>
+                <div className="relative w-36 h-36 rounded-full bg-[#0d0f22] border-4 border-[#ff9e3b] p-1 shadow-2xl flex items-center justify-center overflow-hidden transition transform group-hover:scale-105">
+                  {!imageError ? (
+                    <img
+                      src={profileData.avatarUrl || "/avatar.png"}
+                      alt={profileData.name}
+                      className="w-full h-full object-cover rounded-full"
+                      onError={() => setImageError(true)}
+                    />
+                  ) : (
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#1d1e42] to-[#090b1e] flex flex-col items-center justify-center relative">
+                      <User className="w-16 h-16 text-[#ff9e3b]" />
+                      <Sparkles className="w-4 h-4 text-amber-300 absolute top-3 right-3 animate-pulse" />
+                    </div>
+                  )}
                 </div>
               </div>
 

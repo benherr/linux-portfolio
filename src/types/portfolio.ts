@@ -5,6 +5,7 @@ export interface ProfileData {
   osName: string;
   osVersion: string;
   role: string;
+  avatarUrl?: string;
   education: {
     degree: string;
     field: string;

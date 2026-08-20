@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { profileData } from "@/data/profile";
-import { GraduationCap, ShieldCheck, Terminal, Server, Cpu, Globe, Award } from "lucide-react";
+import { GraduationCap, ShieldCheck, Terminal, Cpu, User } from "lucide-react";
 import { AppId } from "@/types/os";
 
 interface AboutAppProps {
@@ -10,13 +10,24 @@ interface AboutAppProps {
 }
 
 export const AboutApp: React.FC<AboutAppProps> = ({ onOpenApp }) => {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <div className="p-4 sm:p-6 space-y-6 text-slate-200 font-sans">
       {/* Header Profile Banner */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-lg bg-ninja-panel border border-ninja-border shadow-glow">
         <div className="flex items-center space-x-4">
-          <div className="w-14 h-14 rounded-full bg-ninja-surface border-2 border-ninja-cyan flex items-center justify-center text-ninja-cyan shadow-glow font-mono font-bold text-xl shrink-0">
-            N
+          <div className="w-16 h-16 rounded-full bg-ninja-surface border-2 border-ninja-cyan flex items-center justify-center text-ninja-cyan shadow-glow overflow-hidden shrink-0">
+            {!imageError ? (
+              <img
+                src={profileData.avatarUrl || "/avatar.png"}
+                alt={profileData.name}
+                className="w-full h-full object-cover"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <span className="font-mono font-bold text-2xl">B</span>
+            )}
           </div>
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-white tracking-wide">{profileData.name}</h1>
@@ -63,7 +74,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ onOpenApp }) => {
               Completed: <span className="text-slate-200 font-mono">{profileData.education.completionYear}</span>
             </div>
             <div className="text-slate-400">
-              Institution: <span className="text-slate-200">{profileData.education.institution}</span> ({profileData.education.location})
+              Institution: <span className="text-slate-200 font-bold">{profileData.education.institution}</span> ({profileData.education.location})
             </div>
           </div>
         </div>

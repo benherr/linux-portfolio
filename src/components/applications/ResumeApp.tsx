@@ -6,7 +6,7 @@ import { projectsData } from "@/data/projects";
 import { skillsData } from "@/data/skills";
 import { certificationsData } from "@/data/certifications";
 import { contactData } from "@/data/contact";
-import { Download, FileText, ExternalLink, GraduationCap, Briefcase, Cpu, Award } from "lucide-react";
+import { Download, FileText } from "lucide-react";
 
 export const ResumeApp: React.FC = () => {
   return (
@@ -17,15 +17,15 @@ export const ResumeApp: React.FC = () => {
           <FileText className="w-8 h-8 text-ninja-cyan shrink-0" />
           <div>
             <h1 className="text-base sm:text-lg font-bold text-white font-mono">
-              Ninja - Professional Resume
+              Benher Basheer - Professional Resume
             </h1>
-            <p className="text-xs text-slate-400">MCA 2025 • Linux & Cybersecurity Specialist</p>
+            <p className="text-xs text-slate-400">MCA 2025 • {profileData.education.institution}</p>
           </div>
         </div>
 
         <a
           href="/resume.pdf"
-          download="Ninja_Resume.pdf"
+          download="Benher_Basheer_Resume.pdf"
           className="flex items-center space-x-2 bg-ninja-cyan hover:bg-cyan-400 text-ninja-dark font-bold font-mono text-xs px-4 py-2 rounded shadow transition cursor-pointer"
         >
           <Download className="w-4 h-4" />
@@ -63,7 +63,7 @@ export const ResumeApp: React.FC = () => {
               <span className="font-mono text-ninja-cyan">{profileData.education.completionYear}</span>
             </div>
             <div className="text-slate-400">
-              {profileData.education.field} — {profileData.education.institution} ({profileData.education.location})
+              {profileData.education.field} — <strong className="text-slate-200">{profileData.education.institution}</strong> ({profileData.education.location})
             </div>
           </div>
         </div>
