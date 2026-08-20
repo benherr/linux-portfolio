@@ -10,7 +10,7 @@ interface SocialBrowserAppProps {
 
 export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
   const [url, setUrl] = useState<string>(
-    type === "github" ? "https://github.com/benher" : "https://linkedin.com/in/benher"
+    type === "github" ? "https://github.com/benherr" : "https://www.linkedin.com/in/benher-basheer/"
   );
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 
@@ -25,9 +25,8 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
       <div className="h-10 border-b border-[#282d54] px-3 flex items-center space-x-3 bg-[#131630]/90 shrink-0">
         <button
           onClick={handleRefresh}
-          className={`p-1 rounded hover:bg-white/10 text-slate-400 hover:text-white transition cursor-pointer ${
-            isRefreshing ? "animate-spin" : ""
-          }`}
+          className={`p-1 rounded hover:bg-white/10 text-slate-400 hover:text-white transition cursor-pointer ${isRefreshing ? "animate-spin" : ""
+            }`}
           title="Refresh Page"
         >
           <RotateCw className="w-3.5 h-3.5" />
@@ -67,7 +66,7 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
                 <div className="flex flex-col sm:flex-row justify-between items-center">
                   <div>
                     <h1 className="text-xl font-bold font-mono text-white">BENHER</h1>
-                    <p className="text-xs text-slate-400 font-mono">@benher-dev</p>
+                    <p className="text-xs text-slate-400 font-mono">@benherr</p>
                   </div>
                   <a
                     href={contactData.github}
@@ -86,7 +85,7 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
                 <div className="flex items-center space-x-4 text-[11px] font-mono text-slate-400 pt-1 justify-center sm:justify-start">
                   <span>📍 {contactData.location}</span>
                   <span>•</span>
-                  <span>📦 18 Public Repositories</span>
+                  <span>📦 Public Repositories</span>
                 </div>
               </div>
             </div>
@@ -102,30 +101,16 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
                   {
                     name: "Decentralized-Voting-DApp",
                     desc: "Ethereum smart contract voting protocol with zero-knowledge voter privacy.",
-                    lang: "TypeScript / Solidity",
-                    stars: 42,
-                    forks: 12,
+                    lang: "Next.js / Solidity",
+                    stars: 1,
+                    forks: 0,
                   },
                   {
-                    name: "NinjaOS-Portfolio-Linux",
-                    desc: "Custom operating system personal portfolio built with Next.js 15, React 19 & Tailwind.",
-                    lang: "TypeScript / Next.js",
-                    stars: 89,
-                    forks: 24,
-                  },
-                  {
-                    name: "Cybersecurity-SOC-Lab",
-                    desc: "Automated threat detection & firewall monitoring agent for Linux servers.",
-                    lang: "Python / Shell",
-                    stars: 35,
-                    forks: 8,
-                  },
-                  {
-                    name: "Fullstack-Web-Framework",
-                    desc: "High-performance modular REST & GraphQL API boilerplate.",
-                    lang: "Node.js / React",
-                    stars: 28,
-                    forks: 6,
+                    name: "CampusCare",
+                    desc: "A web platform for students to report infrastructure issues and for administrators to track and resolve complaints efficiently.",
+                    lang: "MongoDB / Express / React",
+                    stars: 1,
+                    forks: 0,
                   },
                 ].map((repo) => (
                   <div
@@ -167,7 +152,7 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
                   <div className="flex flex-col sm:flex-row justify-between items-center">
                     <div>
                       <h1 className="text-xl font-bold font-mono text-white flex items-center space-x-1.5">
-                        <span>BENHER</span>
+                        <span>Benher Basheer</span>
                         <CheckCircle className="w-4 h-4 text-sky-400" />
                       </h1>
                       <p className="text-xs text-sky-400 font-mono">Software Engineer & Cybersecurity Developer</p>
@@ -181,7 +166,7 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
                       Connect on LinkedIn
                     </a>
                   </div>
-                  <p className="text-xs text-slate-300 font-sans">Kerala, India • 500+ Connections</p>
+                  <p className="text-xs text-slate-300 font-sans">Kerala, India • Open to Network</p>
                 </div>
               </div>
             </div>
@@ -196,9 +181,8 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
               <div className="space-y-4 text-xs font-sans text-slate-300">
                 <div className="p-4 rounded-xl bg-[#090b1e] border border-[#2b2c52] space-y-1">
                   <div className="font-bold text-white font-mono">Software Engineer & Full-Stack Developer</div>
-                  <div className="text-[#ff9e3b] font-mono text-[11px]">Independent Software & Security Lab • Present</div>
                   <p className="text-slate-300 leading-relaxed pt-1">
-                    Designing full-stack web applications, Linux security environments, smart contract interfaces, and modern desktop experiences.
+                    Designing full-stack web applications, Linux security environments, and modern desktop experiences.
                   </p>
                 </div>
 

@@ -22,7 +22,7 @@ ID=ninjaos
 ID_LIKE=debian
 PRETTY_NAME="NinjaOS 1.0 (Linux-powered Portfolio)"
 HOME_URL="https://ninjaos.portfolio"
-BUG_REPORT_URL="https://github.com/your-username/ninja-os-portfolio"`,
+BUG_REPORT_URL="https://github.com/benherr/linux-portfolio"`,
         },
         {
           name: "motd",
@@ -280,9 +280,9 @@ Resume document available at: /resume.pdf (Click 'Download Resume' in Resume app
                   path: "/home/ninja/contact/contact-info.txt",
                   size: "240 B",
                   updatedAt: "2026-08-19",
-                  content: `Email: your-email@example.com
-GitHub: https://github.com/your-username
-LinkedIn: https://linkedin.com/in/your-profile
+                  content: `Email: benherben456@gmail.com
+GitHub: https://github.com/benherr
+LinkedIn: https://www.linkedin.com/in/benher-basheer
 Location: India (Open to Remote / On-site)`,
                 },
               ],
