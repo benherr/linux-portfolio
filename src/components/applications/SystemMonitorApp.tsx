@@ -76,7 +76,7 @@ export const SystemMonitorApp: React.FC = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-2">
               <HardDrive className="w-4 h-4 text-ninja-amber" />
-              <span className="font-bold text-slate-200">Storage (/home/ninja)</span>
+              <span className="font-bold text-slate-200">Storage (/home/benher)</span>
             </div>
             <span className="text-ninja-amber font-bold">
               {stats.diskUsed} GB / {stats.diskTotal} GB ({diskPercentage}%)
@@ -132,14 +132,14 @@ export const SystemMonitorApp: React.FC = () => {
             <tbody className="divide-y divide-ninja-border/40 text-slate-300">
               <tr>
                 <td className="py-1.5 text-ninja-cyan">1204</td>
-                <td>ninja</td>
-                <td>ninja-desktop-de</td>
+                <td>benher</td>
+                <td>benher-desktop-de</td>
                 <td>{stats.cpuUsage}%</td>
                 <td className="text-emerald-400 font-bold">Running</td>
               </tr>
               <tr>
                 <td className="py-1.5 text-ninja-cyan">1412</td>
-                <td>ninja</td>
+                <td>benher</td>
                 <td>ninja-terminal-shell</td>
                 <td>8.2%</td>
                 <td className="text-emerald-400 font-bold">Running</td>

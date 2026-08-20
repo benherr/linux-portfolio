@@ -28,16 +28,6 @@ export function useBootSequence() {
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
-    try {
-      const skipPref = localStorage.getItem("ninjaos_booted");
-      if (skipPref === "true") {
-        setBootStage("complete");
-        return;
-      }
-    } catch {
-      // ignore
-    }
-
     let logIndex = 0;
     const totalLogs = KERNEL_BOOT_LOGS.length;
 
@@ -65,26 +55,16 @@ export function useBootSequence() {
           setBootStage("login");
         }, 300);
       }
-    }, 250);
+    }, 200);
 
     return () => clearInterval(interval);
   }, []);
 
   const completeBoot = () => {
-    try {
-      localStorage.setItem("ninjaos_booted", "true");
-    } catch {
-      // ignore
-    }
     setBootStage("complete");
   };
 
   const skipBoot = () => {
-    try {
-      localStorage.setItem("ninjaos_booted", "true");
-    } catch {
-      // ignore
-    }
     setBootStage("complete");
   };
 

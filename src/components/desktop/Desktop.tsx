@@ -124,7 +124,6 @@ export const Desktop: React.FC<DesktopProps> = ({
   const [accentColor, setAccentColor] = useState<AccentColor>("match");
   const [glassOpacity, setGlassOpacity] = useState<number>(65);
 
-  const [visitCount, setVisitCount] = useState<number>(934);
   const [achievement, setAchievement] = useState<{ title: string; description: string } | null>(null);
   const [isAchievementDismissed, setIsAchievementDismissed] = useState<boolean>(false);
 
@@ -134,11 +133,6 @@ export const Desktop: React.FC<DesktopProps> = ({
   // Persistence
   useEffect(() => {
     try {
-      const storedVisits = localStorage.getItem("ninjaos_visit_count");
-      const currentVisits = storedVisits ? parseInt(storedVisits, 10) + 1 : 934;
-      setVisitCount(currentVisits);
-      localStorage.setItem("ninjaos_visit_count", currentVisits.toString());
-
       const isDismissed = localStorage.getItem("ninjaos_achievement_dismissed");
       if (isDismissed === "true") {
         setIsAchievementDismissed(true);
@@ -374,15 +368,13 @@ export const Desktop: React.FC<DesktopProps> = ({
           </button>
         </div>
 
-        {/* Bottom Left Version & Global Visit Counter Watermark */}
+        {/* Bottom Left Version Watermark */}
         <div
           className={`absolute bottom-3 left-4 text-[11px] font-mono opacity-90 z-[1] select-none flex items-center space-x-2 ${
             isLight ? "text-slate-700" : "text-slate-400"
           }`}
         >
           <span>v1.0.0</span>
-          <span>·</span>
-          <span>{visitCount.toLocaleString()} global visits</span>
         </div>
 
         {/* Windows Container Stack */}

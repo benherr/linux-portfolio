@@ -6,7 +6,7 @@ import { getFSNodeByPath, virtualFileSystem } from "@/data/filesystem";
 import { Folder, FileText, ChevronRight, Home, HardDrive, ArrowLeft, Eye, X } from "lucide-react";
 
 export const FileManagerApp: React.FC = () => {
-  const [currentPath, setCurrentPath] = useState<string>("/home/ninja");
+  const [currentPath, setCurrentPath] = useState<string>("/home/benher");
   const [selectedFile, setSelectedFile] = useState<FSNode | null>(null);
 
   const currentNode = getFSNodeByPath(currentPath) || virtualFileSystem;
@@ -93,10 +93,10 @@ export const FileManagerApp: React.FC = () => {
           </div>
           <div className="space-y-1">
             {[
-              { label: "Home", path: "/home/ninja", icon: Home },
-              { label: "Projects", path: "/home/ninja/projects", icon: Folder },
-              { label: "Skills", path: "/home/ninja/skills", icon: Folder },
-              { label: "Security", path: "/home/ninja/cybersecurity", icon: Folder },
+              { label: "Home", path: "/home/benher", icon: Home },
+              { label: "Projects", path: "/home/benher/projects", icon: Folder },
+              { label: "Skills", path: "/home/benher/skills", icon: Folder },
+              { label: "Security", path: "/home/benher/cybersecurity", icon: Folder },
               { label: "Root (/)", path: "/", icon: HardDrive },
             ].map((loc) => {
               const Icon = loc.icon;

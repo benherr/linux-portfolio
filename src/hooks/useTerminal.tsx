@@ -13,7 +13,7 @@ import { securitySystemStatus } from "@/data/securityData";
 import { AppId } from "@/types/os";
 
 export function useTerminal(openWindow?: (id: AppId) => void, closeWindow?: (id: AppId) => void) {
-  const [cwd, setCwd] = useState<string>("/home/ninja");
+  const [cwd, setCwd] = useState<string>("/home/benher");
   const [history, setHistory] = useState<TerminalHistoryItem[]>([]);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
@@ -110,7 +110,7 @@ Type 'help' for a list of available commands or 'neofetch' for system info.`,
 
         case "cd": {
           if (!args[0] || args[0] === "~") {
-            setCwd("/home/ninja");
+            setCwd("/home/benher");
             break;
           }
 
@@ -167,7 +167,7 @@ Type 'help' for a list of available commands or 'neofetch' for system info.`,
       |_| \\_|_|_| |_|_|  \\___/|____/ `}</pre>
                   </div>
                   <div className="space-y-1 text-slate-200">
-                    <div className="font-bold text-ninja-green">ninja@NinjaOS</div>
+                    <div className="font-bold text-ninja-green">benher@NinjaOS</div>
                     <div className="text-slate-500">------------------</div>
                     <div><span className="text-ninja-cyan font-bold">OS:</span> NinjaOS 1.0 LTS x86_64</div>
                     <div><span className="text-ninja-cyan font-bold">Kernel:</span> 6.8.0-ninja</div>
@@ -299,7 +299,7 @@ Type 'help' for a list of available commands or 'neofetch' for system info.`,
             {
               id: Math.random().toString(),
               type: "text",
-              content: `top - 17:00:00 up 2:45,  1 user,  load average: 0.28, 0.15, 0.10\nTasks: 142 total,   1 running, 141 sleeping,   0 stopped,   0 zombie\n%Cpu(s): 28.4 us,  2.1 sy,  0.0 ni, 69.5 id,  0.0 wa,  0.0 hi,  0.0 si\nMiB Mem :   8192.0 total,   3892.4 free,   3240.1 used,   1059.5 buff/cache\n\n  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND\n 1204 ninja     20   0 1204500 142050  45210 S  18.4   1.7   0:42.15 ninja-desktop\n 1412 ninja     20   0  450120  68200  28100 S   8.2   0.8   0:15.82 terminal\n  412 root      20   0  185400  12400   9100 S   1.0   0.2   0:02.10 ufw-daemon`,
+              content: `top - 17:00:00 up 2:45,  1 user,  load average: 0.28, 0.15, 0.10\nTasks: 142 total,   1 running, 141 sleeping,   0 stopped,   0 zombie\n%Cpu(s): 28.4 us,  2.1 sy,  0.0 ni, 69.5 id,  0.0 wa,  0.0 hi,  0.0 si\nMiB Mem :   8192.0 total,   3892.4 free,   3240.1 used,   1059.5 buff/cache\n\n  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND\n 1204 benher    20   0 1204500 142050  45210 S  18.4   1.7   0:42.15 benher-desktop\n 1412 benher    20   0  450120  68200  28100 S   8.2   0.8   0:15.82 terminal\n  412 root      20   0  185400  12400   9100 S   1.0   0.2   0:02.10 ufw-daemon`,
             },
           ];
           break;
@@ -322,7 +322,7 @@ Type 'help' for a list of available commands or 'neofetch' for system info.`,
               {
                 id: Math.random().toString(),
                 type: "warning",
-                content: `[sudo] permission granted to ninja. Try 'sudo coffee'.`,
+                content: `[sudo] permission granted to benher. Try 'sudo coffee'.`,
               },
             ];
           }
@@ -355,7 +355,7 @@ Type 'help' for a list of available commands or 'neofetch' for system info.`,
         {
           id: Math.random().toString(),
           type: "text",
-          content: `ninja@NinjaOS:${cwd}$ ${trimmed}`,
+          content: `benher@NinjaOS:${cwd}$ ${trimmed}`,
         },
         ...newOutput,
       ]);

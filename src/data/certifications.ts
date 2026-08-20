@@ -22,11 +22,19 @@ export const certificationsData: CertificationData[] = [
   {
     id: "Linux Fundamentals",
     name: "Linux Fundamentals",
-    issuer: "Coursera ",
+    issuer: "Coursera",
     year: "2026",
     credentialUrl: "https://coursera.org/share/f1157780c0544078461ab9c6c7f7df71",
     badgeIcon: "ShieldCheck",
     skillsVerified: ["bash shell", "User Permissions", "CLI"],
   },
-
+  {
+    id: "java-fullstack-qspiders",
+    name: "Java Fullstack Development",
+    issuer: "Qspiders",
+    year: "2025",
+    credentialUrl: "#",
+    badgeIcon: "Code",
+    skillsVerified: ["Java", "Fullstack Development", "SQL", "Web Development"],
+  },
 ];

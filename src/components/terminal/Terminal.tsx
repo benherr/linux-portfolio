@@ -71,7 +71,7 @@ export const Terminal: React.FC<TerminalProps> = ({ openWindow, closeWindow }) =
 
       {/* Input Prompt Line */}
       <div className="pt-2 border-t border-ninja-border/40 flex items-center space-x-2 shrink-0">
-        <span className="text-ninja-green font-bold shrink-0">ninja@NinjaOS</span>
+        <span className="text-ninja-green font-bold shrink-0">benher@NinjaOS</span>
         <span className="text-slate-500">:</span>
         <span className="text-ninja-cyan font-semibold shrink-0">{cwd}</span>
         <span className="text-slate-300 font-bold">$</span>

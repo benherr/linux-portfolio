@@ -56,7 +56,7 @@ Type 'help' in terminal to explore available commands.`,
               path: "/var/log/syslog",
               size: "1.2 KB",
               updatedAt: "2026-08-19",
-              content: `[0.000000] Linux version 6.8.0-ninja (ninja@NinjaOS)
+              content: `[0.000000] Linux version 6.8.0-ninja (benher@NinjaOS)
 [0.012431] CPU0: MCA Graduate 2025 Architecture
 [0.104212] Memory: 8192MB Virtual RAM mounted
 [0.412015] systemd[1]: Starting Portfolio Environment Services...
@@ -90,22 +90,22 @@ Type 'help' in terminal to explore available commands.`,
       path: "/home",
       children: [
         {
-          name: "ninja",
+          name: "benher",
           type: "directory",
-          path: "/home/ninja",
+          path: "/home/benher",
           children: [
             {
               name: "about",
               type: "directory",
-              path: "/home/ninja/about",
+              path: "/home/benher/about",
               children: [
                 {
                   name: "bio.txt",
                   type: "file",
-                  path: "/home/ninja/about/bio.txt",
+                  path: "/home/benher/about/bio.txt",
                   size: "420 B",
                   updatedAt: "2026-08-19",
-                  content: `Hello, I'm Ninja.
+                  content: `Hello, I'm Benher Basheer.
 
 MCA Graduate (2025) and aspiring Linux & Cybersecurity professional
 with a background in software development and full-stack engineering.
@@ -120,13 +120,14 @@ Interested in:
                 {
                   name: "education.txt",
                   type: "file",
-                  path: "/home/ninja/about/education.txt",
+                  path: "/home/benher/about/education.txt",
                   size: "210 B",
                   updatedAt: "2026-08-19",
                   content: `Degree: Master of Computer Applications (MCA)
 Year: 2025
 Field: Computer Science & Software Engineering
-Location: India
+Location:wayanad,kerala, India
+College:College Of engineering Vadakara.
 
 Foundational Focus: Data Structures, Operating Systems, Computer Networks, Database Systems, Software Engineering.`,
                 },
@@ -135,26 +136,25 @@ Foundational Focus: Data Structures, Operating Systems, Computer Networks, Datab
             {
               name: "projects",
               type: "directory",
-              path: "/home/ninja/projects",
+              path: "/home/benher/projects",
               children: [
                 {
                   name: "README.md",
                   type: "file",
-                  path: "/home/ninja/projects/README.md",
+                  path: "/home/benher/projects/README.md",
                   size: "350 B",
                   updatedAt: "2026-08-19",
-                  content: `# Ninja's Projects Directory
+                  content: `# Benher's Projects Directory
 
 Here you'll find key development and cybersecurity projects:
 1. decentralized-voting/ - Blockchain voting platform built with Solidity, Next.js, Hardhat & IPFS
-2. ai-agent/ - Autonomous LLM agent runner
-3. web-project/ - NinjaOS portfolio web app
-4. cyber-lab/ - SOC dashboard & firewall monitoring lab`,
+2. ai-agent/ - Care-Navigator
+3. web-project/ - Linux-portfolio web app`
                 },
                 {
                   name: "decentralized-voting.txt",
                   type: "file",
-                  path: "/home/ninja/projects/decentralized-voting.txt",
+                  path: "/home/benher/projects/decentralized-voting.txt",
                   size: "520 B",
                   updatedAt: "2026-08-19",
                   content: `Project: Decentralized Voting DApp
@@ -166,26 +166,26 @@ A decentralized voting application designed to manage voter and candidate regist
                 {
                   name: "ai-agent.txt",
                   type: "file",
-                  path: "/home/ninja/projects/ai-agent.txt",
+                  path: "/home/benher/projects/ai-agent.txt",
                   size: "310 B",
                   updatedAt: "2026-08-19",
                   content: `Project: Autonomous Task AI Agent
-Tech: Python, Google Gemini API, Node.js, TypeScript, LangChain
+Tech: Python, Google Gemini API
 
 Description:
-An intelligent agent workflow runner capable of code inspection and structured diagnostic execution.`,
+An intelligent, secure, multi-agent coordinator that simplifies this process by answering eligibility questions, outlining required documents, finding local offices, and preparing users for applications.`,
                 },
               ],
             },
             {
               name: "skills",
               type: "directory",
-              path: "/home/ninja/skills",
+              path: "/home/benher/skills",
               children: [
                 {
                   name: "linux-skills.txt",
                   type: "file",
-                  path: "/home/ninja/skills/linux-skills.txt",
+                  path: "/home/benher/skills/linux-skills.txt",
                   size: "380 B",
                   updatedAt: "2026-08-19",
                   content: `[Linux & Shell Skills]
@@ -199,7 +199,7 @@ An intelligent agent workflow runner capable of code inspection and structured d
                 {
                   name: "security-skills.txt",
                   type: "file",
-                  path: "/home/ninja/skills/security-skills.txt",
+                  path: "/home/benher/skills/security-skills.txt",
                   size: "310 B",
                   updatedAt: "2026-08-19",
                   content: `[Cybersecurity Skills]
@@ -214,12 +214,12 @@ An intelligent agent workflow runner capable of code inspection and structured d
             {
               name: "cybersecurity",
               type: "directory",
-              path: "/home/ninja/cybersecurity",
+              path: "/home/benher/cybersecurity",
               children: [
                 {
                   name: "security-status.txt",
                   type: "file",
-                  path: "/home/ninja/cybersecurity/security-status.txt",
+                  path: "/home/benher/cybersecurity/security-status.txt",
                   size: "290 B",
                   updatedAt: "2026-08-19",
                   content: `SYSTEM SECURITY STATUS
@@ -235,35 +235,36 @@ Authentication: ENABLED`,
             {
               name: "certifications",
               type: "directory",
-              path: "/home/ninja/certifications",
+              path: "/home/benher/certifications",
               children: [
                 {
                   name: "certifications.txt",
                   type: "file",
-                  path: "/home/ninja/certifications/certifications.txt",
+                  path: "/home/benher/certifications/certifications.txt",
                   size: "410 B",
                   updatedAt: "2026-08-19",
                   content: `Certifications & Credentials:
-1. Google Cloud Computing Fundamentals (Google Cloud, 2024)
-2. Google / Kaggle AI Agents Intensive (Google & Kaggle, 2024)
-3. Cybersecurity Foundations (Security Academy, 2024)
-4. Linux Command Line Essentials (Linux Learning, 2024)`,
+1. Google Cloud Computing Fundamentals (Google Cloud, 2026)
+2. Google / Kaggle AI Agents Intensive (Google & Kaggle, 2026)
+3. Linux Fundamentals (Coursera, 2026)
+4. Java fullstack development(Qspiders,2025)`
+
                 },
               ],
             },
             {
               name: "resume",
               type: "directory",
-              path: "/home/ninja/resume",
+              path: "/home/benher/resume",
               children: [
                 {
                   name: "resume-info.txt",
                   type: "file",
-                  path: "/home/ninja/resume/resume-info.txt",
+                  path: "/home/benher/resume/resume-info.txt",
                   size: "280 B",
                   updatedAt: "2026-08-19",
                   content: `Resume metadata:
-Candidate: Ninja (MCA 2025)
+Candidate: Benher Basheer (MCA 2025)
 Focus: Linux & Cybersecurity / Full-Stack Development
 Resume document available at: /resume.pdf (Click 'Download Resume' in Resume app).`,
                 },
@@ -272,12 +273,12 @@ Resume document available at: /resume.pdf (Click 'Download Resume' in Resume app
             {
               name: "contact",
               type: "directory",
-              path: "/home/ninja/contact",
+              path: "/home/benher/contact",
               children: [
                 {
                   name: "contact-info.txt",
                   type: "file",
-                  path: "/home/ninja/contact/contact-info.txt",
+                  path: "/home/benher/contact/contact-info.txt",
                   size: "240 B",
                   updatedAt: "2026-08-19",
                   content: `Email: benherben456@gmail.com

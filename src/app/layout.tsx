@@ -15,11 +15,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NinjaOS | Linux Portfolio",
+  title: "Benher Basheer | Linux-Powered Portfolio",
   description:
-    "Interactive Linux-inspired portfolio showcasing MCA graduate projects, Linux system administration, cybersecurity learning, cloud technologies, and full-stack software development.",
+    "Interactive Linux-inspired desktop portfolio of Benher Basheer (MCA 2025), showcasing full-stack development, AI agents, Linux administration, and cybersecurity credentials.",
   keywords: [
-    "NinjaOS",
+    "Benher Basheer",
     "Linux Portfolio",
     "Cybersecurity Portfolio",
     "MCA Graduate",
@@ -29,19 +29,18 @@ export const metadata: Metadata = {
     "TypeScript",
     "Bash Automation",
   ],
-  authors: [{ name: "Benher" }],
+  authors: [{ name: "Benher Basheer" }],
   openGraph: {
-    title: "NinjaOS | Linux Portfolio",
+    title: "Benher Basheer | Linux-Powered Portfolio",
     description:
       "Interactive Linux OS browser experience built with Next.js & React showcasing projects, cybersecurity operations, and technical skills.",
-    url: "https://ninjaos.portfolio",
     siteName: "NinjaOS",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "NinjaOS | Linux Portfolio",
+    title: "Benher Basheer | Linux-Powered Portfolio",
     description:
       "Interactive Linux-powered portfolio showcasing Linux skills, cybersecurity labs, and software engineering projects.",
   },
