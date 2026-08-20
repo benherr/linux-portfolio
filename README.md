@@ -1,7 +1,6 @@
 # 🐧 Benher Basheer — Linux-Powered Portfolio (NinjaOS)
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-linux.benherbasheer.me-00f2fe?style=for-the-badge&logo=vercel&logoColor=white)](https://linux.benherbasheer.me)
-[![Next.js 15](https://img.shields.io/badge/Next.js_15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![Next.js 15](https://img.shields.io/badge/Next.js_15-000000?style=for-the-badge&logo=nextdotjs&logoColor=black)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
@@ -85,4 +84,4 @@ npm run start
 
 ---
 
-*Built with ❤️ & Next.js 15 by Benher Basheer.*
+*Built with ❤️*
