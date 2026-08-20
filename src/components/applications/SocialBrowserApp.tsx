@@ -15,23 +15,23 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
   );
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 
-  const [githubImgSrc, setGithubImgSrc] = useState<string>(profileData.avatarUrl || "/githubprof.jpg");
+  const [githubImgSrc, setGithubImgSrc] = useState<string>("/githubprof.jpg");
   const [githubAvatarError, setGithubAvatarError] = useState(false);
 
-  const [linkedinImgSrc, setLinkedinImgSrc] = useState<string>(profileData.avatarUrl || "/Myphoto.jpg");
+  const [linkedinImgSrc, setLinkedinImgSrc] = useState<string>("/Myphoto.jpg");
   const [linkedinAvatarError, setLinkedinAvatarError] = useState(false);
 
   const handleGithubImageError = () => {
-    if (githubImgSrc === "/avatar.jpg") {
-      setGithubImgSrc("/avatar.png");
+    if (githubImgSrc === "/githubprof.jpg") {
+      setGithubImgSrc("/avatar.jpg");
     } else {
       setGithubAvatarError(true);
     }
   };
 
   const handleLinkedinImageError = () => {
-    if (linkedinImgSrc === "/avatar.jpg") {
-      setLinkedinImgSrc("/avatar.png");
+    if (linkedinImgSrc === "/Myphoto.jpg") {
+      setLinkedinImgSrc("/avatar.jpg");
     } else {
       setLinkedinAvatarError(true);
     }
@@ -86,7 +86,7 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
                   <img
                     src={githubImgSrc}
                     alt="BENHER GitHub Avatar"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-full"
                     onError={handleGithubImageError}
                   />
                 ) : (
