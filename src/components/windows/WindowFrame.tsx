@@ -125,9 +125,11 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
           isLight ? "border-slate-300 text-slate-800" : "border-white/10 text-slate-200"
         }`}
         onPointerDown={(e) => {
+          if ((e.target as HTMLElement).closest("button")) {
+            return;
+          }
           onFocus(windowState.id);
           setIsDragging(true);
-          setHasUserDragged(true);
           const initialX = isMobile && !hasUserDragged ? mobileCenterX : windowState.position.x;
           const initialY = isMobile && !hasUserDragged ? 0 : windowState.position.y;
           const startX = e.clientX - initialX;
@@ -135,6 +137,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
 
           const onPointerMove = (moveEvent: PointerEvent) => {
             if (!windowState.isMaximized) {
+              setHasUserDragged(true);
               const newX = Math.max(-50, Math.min(window.innerWidth - 80, moveEvent.clientX - startX));
               const newY = Math.max(-10, Math.min(window.innerHeight - 80, moveEvent.clientY - startY));
               onPositionChange(windowState.id, { x: newX, y: newY });
@@ -160,13 +163,14 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
         </div>
 
         {/* Right: Window Controls (Standard Cursor - No Pointer Change on Hover) */}
-        <div className="flex items-center space-x-2.5 shrink-0 text-slate-400 cursor-default">
+        <div className="flex items-center space-x-2.5 shrink-0 text-slate-400 cursor-default" onPointerDown={(e) => e.stopPropagation()}>
           {/* Minimize */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               onMinimize(windowState.id);
             }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="hover:text-white p-0.5 rounded transition cursor-default"
             title="Minimize Window"
           >
@@ -179,6 +183,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
               e.stopPropagation();
               onMaximize(windowState.id);
             }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="hover:text-white p-0.5 rounded transition cursor-default"
             title={windowState.isMaximized ? "Restore Window" : "Maximize Window"}
           >
@@ -195,6 +200,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
               e.stopPropagation();
               onClose(windowState.id);
             }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="hover:text-white hover:bg-rose-600/80 p-0.5 rounded transition cursor-default"
             title="Close Window"
           >
