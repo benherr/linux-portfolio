@@ -5,6 +5,7 @@ import { AppId, DesktopIcon, WindowState, WallpaperId, ThemeMode, AccentColor } 
 import { TopPanel } from "@/components/desktop/TopPanel";
 import { Launcher } from "@/components/desktop/Launcher";
 import { WindowFrame } from "@/components/windows/WindowFrame";
+import { Taskbar } from "@/components/windows/Taskbar";
 import { NotificationCenter } from "@/components/desktop/NotificationCenter";
 import { WallpaperBackground } from "@/components/desktop/WallpaperBackground";
 import { AchievementToast } from "@/components/desktop/AchievementToast";
@@ -376,6 +377,14 @@ export const Desktop: React.FC<DesktopProps> = ({
         >
           <span>v1.0.0</span>
         </div>
+
+        {/* Open Windows Taskbar (Tab Switcher) */}
+        <Taskbar
+          windows={windows}
+          activeAppId={activeAppId}
+          onFocus={focusWindow}
+          onToggleMinimize={toggleMinimize}
+        />
 
         {/* Windows Container Stack */}
         {windows.map((win) => (

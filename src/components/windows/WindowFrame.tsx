@@ -32,9 +32,19 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
   children,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const dragRef = useRef<HTMLDivElement>(null);
   const accent = ACCENT_MAP[accentColor] || ACCENT_MAP.match;
   const isLight = themeMode === "light";
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   if (!windowState.isOpen || windowState.isMinimized) {
     return null;
@@ -57,10 +67,18 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
       ref={dragRef}
       initial={false}
       animate={{
-        x: windowState.isMaximized ? 0 : windowState.position.x,
-        y: windowState.isMaximized ? 0 : windowState.position.y,
-        width: windowState.isMaximized ? "100vw" : windowState.size.width,
-        height: windowState.isMaximized ? "calc(100vh - 36px)" : windowState.size.height,
+        x: isMobile || windowState.isMaximized ? 0 : windowState.position.x,
+        y: isMobile || windowState.isMaximized ? 0 : windowState.position.y,
+        width: isMobile
+          ? "100vw"
+          : windowState.isMaximized
+          ? "100vw"
+          : windowState.size.width,
+        height: isMobile
+          ? "calc(100vh - 110px)"
+          : windowState.isMaximized
+          ? "calc(100vh - 36px)"
+          : windowState.size.height,
       }}
       transition={{ duration: 0.15, ease: "easeOut" }}
       style={{
@@ -71,7 +89,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
       }}
       onClick={() => onFocus(windowState.id)}
       className={`fixed top-9 left-0 flex flex-col rounded-xl overflow-hidden shadow-2xl border transition-colors duration-200 ${
-        windowState.isMaximized ? "rounded-none top-9" : ""
+        windowState.isMaximized || isMobile ? "rounded-none top-9" : ""
       } ${
         isLight
           ? "border-slate-300 text-slate-900 shadow-slate-400/30"
