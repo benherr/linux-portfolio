@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Github, Linkedin, Lock, RotateCw, ExternalLink, Star, GitFork, Award, CheckCircle, User } from "lucide-react";
+import { Github, Linkedin, Lock, RotateCw, ExternalLink, Star, GitFork, Award, CheckCircle } from "lucide-react";
 import { contactData } from "@/data/contact";
 import { profileData } from "@/data/profile";
 
@@ -14,8 +14,28 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
     type === "github" ? "https://github.com/benherr" : "https://www.linkedin.com/in/benher-basheer/"
   );
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+
+  const [githubImgSrc, setGithubImgSrc] = useState<string>(profileData.avatarUrl || "/avatar.jpg");
   const [githubAvatarError, setGithubAvatarError] = useState(false);
+
+  const [linkedinImgSrc, setLinkedinImgSrc] = useState<string>(profileData.avatarUrl || "/avatar.jpg");
   const [linkedinAvatarError, setLinkedinAvatarError] = useState(false);
+
+  const handleGithubImageError = () => {
+    if (githubImgSrc === "/avatar.jpg") {
+      setGithubImgSrc("/avatar.png");
+    } else {
+      setGithubAvatarError(true);
+    }
+  };
+
+  const handleLinkedinImageError = () => {
+    if (linkedinImgSrc === "/avatar.jpg") {
+      setLinkedinImgSrc("/avatar.png");
+    } else {
+      setLinkedinAvatarError(true);
+    }
+  };
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -64,10 +84,10 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
               <div className="w-24 h-24 rounded-full border-4 border-[#ff9e3b] bg-[#080918] flex items-center justify-center shrink-0 shadow-xl overflow-hidden">
                 {!githubAvatarError ? (
                   <img
-                    src={profileData.avatarUrl || "/avatar.png"}
+                    src={githubImgSrc}
                     alt="BENHER GitHub Avatar"
                     className="w-full h-full object-cover"
-                    onError={() => setGithubAvatarError(true)}
+                    onError={handleGithubImageError}
                   />
                 ) : (
                   <Github className="w-12 h-12 text-[#ff9e3b]" />
@@ -159,10 +179,10 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
                 <div className="w-24 h-24 rounded-full border-4 border-[#0b0d1e] bg-[#0b0d1e] flex items-center justify-center shrink-0 shadow-2xl overflow-hidden">
                   {!linkedinAvatarError ? (
                     <img
-                      src={profileData.avatarUrl || "/avatar.png"}
+                      src={linkedinImgSrc}
                       alt="Benher Basheer LinkedIn Avatar"
                       className="w-full h-full object-cover rounded-full"
-                      onError={() => setLinkedinAvatarError(true)}
+                      onError={handleLinkedinImageError}
                     />
                   ) : (
                     <Linkedin className="w-12 h-12 text-sky-400" />

@@ -21,7 +21,16 @@ export const BootScreen: React.FC<BootScreenProps> = ({
   onCompleteLogin,
   onSkip,
 }) => {
+  const [imgSrc, setImgSrc] = useState<string>(profileData.avatarUrl || "/avatar.jpg");
   const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    if (imgSrc === "/avatar.jpg") {
+      setImgSrc("/avatar.png");
+    } else {
+      setImageError(true);
+    }
+  };
 
   if (bootStage === "complete") return null;
 
@@ -101,10 +110,10 @@ export const BootScreen: React.FC<BootScreenProps> = ({
                 <div className="relative w-36 h-36 rounded-full bg-[#0d0f22] border-4 border-[#ff9e3b] p-1 shadow-2xl flex items-center justify-center overflow-hidden transition transform group-hover:scale-105">
                   {!imageError ? (
                     <img
-                      src={profileData.avatarUrl || "/avatar.png"}
+                      src={imgSrc}
                       alt={profileData.name}
                       className="w-full h-full object-cover rounded-full"
-                      onError={() => setImageError(true)}
+                      onError={handleImageError}
                     />
                   ) : (
                     <div className="w-full h-full rounded-full bg-gradient-to-br from-[#1d1e42] to-[#090b1e] flex flex-col items-center justify-center relative">

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { profileData } from "@/data/profile";
-import { GraduationCap, ShieldCheck, Terminal, Cpu, User } from "lucide-react";
+import { GraduationCap, ShieldCheck, Terminal, Cpu } from "lucide-react";
 import { AppId } from "@/types/os";
 
 interface AboutAppProps {
@@ -10,7 +10,16 @@ interface AboutAppProps {
 }
 
 export const AboutApp: React.FC<AboutAppProps> = ({ onOpenApp }) => {
+  const [imgSrc, setImgSrc] = useState<string>(profileData.avatarUrl || "/avatar.jpg");
   const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    if (imgSrc === "/avatar.jpg") {
+      setImgSrc("/avatar.png");
+    } else {
+      setImageError(true);
+    }
+  };
 
   return (
     <div className="p-4 sm:p-6 space-y-6 text-slate-200 font-sans">
@@ -20,10 +29,10 @@ export const AboutApp: React.FC<AboutAppProps> = ({ onOpenApp }) => {
           <div className="w-16 h-16 rounded-full bg-ninja-surface border-2 border-ninja-cyan flex items-center justify-center text-ninja-cyan shadow-glow overflow-hidden shrink-0">
             {!imageError ? (
               <img
-                src={profileData.avatarUrl || "/avatar.png"}
+                src={imgSrc}
                 alt={profileData.name}
                 className="w-full h-full object-cover"
-                onError={() => setImageError(true)}
+                onError={handleImageError}
               />
             ) : (
               <span className="font-mono font-bold text-2xl">B</span>
