@@ -67,17 +67,17 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
       ref={dragRef}
       initial={false}
       animate={{
-        x: isMobile || windowState.isMaximized ? 0 : windowState.position.x,
-        y: isMobile || windowState.isMaximized ? 0 : windowState.position.y,
-        width: isMobile
+        x: windowState.isMaximized ? 0 : windowState.position.x,
+        y: windowState.isMaximized ? 0 : windowState.position.y,
+        width: windowState.isMaximized
           ? "100vw"
-          : windowState.isMaximized
-          ? "100vw"
+          : isMobile
+          ? "min(96vw, 680px)"
           : windowState.size.width,
-        height: isMobile
-          ? "calc(100vh - 110px)"
-          : windowState.isMaximized
+        height: windowState.isMaximized
           ? "calc(100vh - 36px)"
+          : isMobile
+          ? "calc(100vh - 120px)"
           : windowState.size.height,
       }}
       transition={{ duration: 0.15, ease: "easeOut" }}
@@ -88,8 +88,8 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
         WebkitBackdropFilter: `blur(${blurPx}px)`,
       }}
       onClick={() => onFocus(windowState.id)}
-      className={`fixed top-9 left-0 flex flex-col rounded-xl overflow-hidden shadow-2xl border transition-colors duration-200 ${
-        windowState.isMaximized || isMobile ? "rounded-none top-9" : ""
+      className={`fixed top-9 left-0 sm:left-auto flex flex-col rounded-xl overflow-hidden shadow-2xl border transition-colors duration-200 ${
+        windowState.isMaximized ? "rounded-none top-9" : ""
       } ${
         isLight
           ? "border-slate-300 text-slate-900 shadow-slate-400/30"
@@ -98,8 +98,8 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
     >
       {/* Window Title Bar Header */}
       <div
-        style={{ backgroundColor: headerBg }}
-        className={`h-9 px-3.5 flex items-center justify-between select-none cursor-grab active:cursor-grabbing border-b transition-colors ${
+        style={{ backgroundColor: headerBg, touchAction: "none" }}
+        className={`h-9 px-3.5 flex items-center justify-between select-none cursor-grab active:cursor-grabbing border-b transition-colors touch-none ${
           isLight ? "border-slate-300 text-slate-800" : "border-white/10 text-slate-200"
         }`}
         onPointerDown={(e) => {
@@ -110,8 +110,8 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
 
           const onPointerMove = (moveEvent: PointerEvent) => {
             if (!windowState.isMaximized) {
-              const newX = Math.max(0, Math.min(window.innerWidth - 200, moveEvent.clientX - startX));
-              const newY = Math.max(0, Math.min(window.innerHeight - 100, moveEvent.clientY - startY));
+              const newX = Math.max(-50, Math.min(window.innerWidth - 100, moveEvent.clientX - startX));
+              const newY = Math.max(-10, Math.min(window.innerHeight - 80, moveEvent.clientY - startY));
               onPositionChange(windowState.id, { x: newX, y: newY });
             }
           };

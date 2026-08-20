@@ -112,7 +112,7 @@ export const MusicPlayerWidget: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-10 right-0 z-[250] w-[90vw] xs:w-80 sm:w-84 max-w-xs sm:max-w-none bg-[#120e24]/95 border border-[#2b2c52] rounded-2xl p-3 sm:p-4 shadow-2xl backdrop-blur-md text-slate-200 font-sans select-none space-y-3.5"
+            className="fixed top-14 left-1/2 -translate-x-1/2 sm:absolute sm:top-10 sm:left-auto sm:right-0 sm:translate-x-0 z-[250] w-[92vw] sm:w-84 max-w-sm sm:max-w-none bg-[#120e24]/95 border border-[#2b2c52] rounded-2xl p-4 shadow-2xl backdrop-blur-md text-slate-200 font-sans select-none space-y-3.5"
           >
             {/* Widget Header */}
             <div className="flex justify-between items-center border-b border-[#2b2c52] pb-2.5">
