@@ -33,6 +33,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasUserDragged, setHasUserDragged] = useState(false);
   const dragRef = useRef<HTMLDivElement>(null);
   const accent = ACCENT_MAP[accentColor] || ACCENT_MAP.match;
   const isLight = themeMode === "light";
@@ -45,6 +46,12 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  React.useEffect(() => {
+    if (!windowState.isOpen) {
+      setHasUserDragged(false);
+    }
+  }, [windowState.isOpen]);
 
   if (!windowState.isOpen || windowState.isMinimized) {
     return null;
@@ -62,17 +69,32 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
     ? `rgba(226, 232, 240, ${Math.min(1, parseFloat(opacityFraction) + 0.15)})`
     : `rgba(24, 18, 48, ${Math.min(1, parseFloat(opacityFraction) + 0.15)})`;
 
+  const windowWidthPx = typeof window !== "undefined" ? Math.min(window.innerWidth * 0.95, 680) : 680;
+  const mobileCenterX = typeof window !== "undefined" ? Math.max(4, Math.round((window.innerWidth - windowWidthPx) / 2)) : 4;
+
+  const currentX = windowState.isMaximized
+    ? 0
+    : isMobile && !hasUserDragged
+    ? mobileCenterX
+    : windowState.position.x;
+
+  const currentY = windowState.isMaximized
+    ? 0
+    : isMobile && !hasUserDragged
+    ? 0
+    : windowState.position.y;
+
   return (
     <motion.div
       ref={dragRef}
       initial={false}
       animate={{
-        x: windowState.isMaximized ? 0 : windowState.position.x,
-        y: windowState.isMaximized ? 0 : windowState.position.y,
+        x: currentX,
+        y: currentY,
         width: windowState.isMaximized
           ? "100vw"
           : isMobile
-          ? "min(96vw, 680px)"
+          ? "min(95vw, 680px)"
           : windowState.size.width,
         height: windowState.isMaximized
           ? "calc(100vh - 36px)"
@@ -80,7 +102,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
           ? "calc(100vh - 120px)"
           : windowState.size.height,
       }}
-      transition={{ duration: 0.15, ease: "easeOut" }}
+      transition={{ duration: isDragging ? 0 : 0.15, ease: "easeOut" }}
       style={{
         zIndex: windowState.zIndex,
         backgroundColor: containerBg,
@@ -105,12 +127,15 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
         onPointerDown={(e) => {
           onFocus(windowState.id);
           setIsDragging(true);
-          const startX = e.clientX - windowState.position.x;
-          const startY = e.clientY - windowState.position.y;
+          setHasUserDragged(true);
+          const initialX = isMobile && !hasUserDragged ? mobileCenterX : windowState.position.x;
+          const initialY = isMobile && !hasUserDragged ? 0 : windowState.position.y;
+          const startX = e.clientX - initialX;
+          const startY = e.clientY - initialY;
 
           const onPointerMove = (moveEvent: PointerEvent) => {
             if (!windowState.isMaximized) {
-              const newX = Math.max(-50, Math.min(window.innerWidth - 100, moveEvent.clientX - startX));
+              const newX = Math.max(-50, Math.min(window.innerWidth - 80, moveEvent.clientX - startX));
               const newY = Math.max(-10, Math.min(window.innerHeight - 80, moveEvent.clientY - startY));
               onPositionChange(windowState.id, { x: newX, y: newY });
             }
