@@ -7,7 +7,7 @@ export const profileData: ProfileData = {
   osName: "NinjaOS",
   osVersion: "1.0-LTS",
   role: "Aspiring Linux & Cybersecurity Specialist / MCA Graduate",
-  avatarUrl: "/avatar.jpg",
+  avatarUrl: "/Myphoto.jpg",
   education: {
     degree: "Master of Computer Applications (MCA)",
     field: "Computer Applications & Software Systems",

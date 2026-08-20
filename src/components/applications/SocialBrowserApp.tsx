@@ -15,10 +15,10 @@ export const SocialBrowserApp: React.FC<SocialBrowserAppProps> = ({ type }) => {
   );
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 
-  const [githubImgSrc, setGithubImgSrc] = useState<string>(profileData.avatarUrl || "/avatar.jpg");
+  const [githubImgSrc, setGithubImgSrc] = useState<string>(profileData.avatarUrl || "/githubprof.jpg");
   const [githubAvatarError, setGithubAvatarError] = useState(false);
 
-  const [linkedinImgSrc, setLinkedinImgSrc] = useState<string>(profileData.avatarUrl || "/avatar.jpg");
+  const [linkedinImgSrc, setLinkedinImgSrc] = useState<string>(profileData.avatarUrl || "/Myphoto.jpg");
   const [linkedinAvatarError, setLinkedinAvatarError] = useState(false);
 
   const handleGithubImageError = () => {

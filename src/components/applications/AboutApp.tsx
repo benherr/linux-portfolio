@@ -10,12 +10,12 @@ interface AboutAppProps {
 }
 
 export const AboutApp: React.FC<AboutAppProps> = ({ onOpenApp }) => {
-  const [imgSrc, setImgSrc] = useState<string>(profileData.avatarUrl || "/avatar.jpg");
+  const [imgSrc, setImgSrc] = useState<string>(profileData.avatarUrl || "/Myphoto.jpg");
   const [imageError, setImageError] = useState(false);
 
   const handleImageError = () => {
-    if (imgSrc === "/avatar.jpg") {
-      setImgSrc("/avatar.png");
+    if (imgSrc === "/Myphoto.jpg") {
+      setImgSrc("/Myphoto.jpg");
     } else {
       setImageError(true);
     }

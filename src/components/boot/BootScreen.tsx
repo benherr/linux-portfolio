@@ -21,12 +21,14 @@ export const BootScreen: React.FC<BootScreenProps> = ({
   onCompleteLogin,
   onSkip,
 }) => {
-  const [imgSrc, setImgSrc] = useState<string>(profileData.avatarUrl || "/avatar.jpg");
+  const [imgSrc, setImgSrc] = useState<string>(profileData.avatarUrl || "/Myphoto.jpg");
   const [imageError, setImageError] = useState(false);
 
   const handleImageError = () => {
-    if (imgSrc === "/avatar.jpg") {
-      setImgSrc("/avatar.png");
+    if (imgSrc === "/Myphoto.jpg") {
+      setImgSrc("/githubprof.jpg");
+    } else if (imgSrc === "/githubprof.jpg") {
+      setImgSrc("/avatar.jpg");
     } else {
       setImageError(true);
     }
