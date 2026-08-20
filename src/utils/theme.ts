@@ -1,69 +1,61 @@
-import { AccentColor } from "@/types/os";
+import { AccentColor, ThemeMode } from "@/types/os";
 
-export interface AccentTheme {
-  name: string;
+export interface AccentThemeConfig {
   hex: string;
-  bgTailwind: string;
-  textTailwind: string;
-  borderTailwind: string;
+  textClass: string;
+  bgClass: string;
+  borderClass: string;
   glowShadow: string;
 }
 
-export const ACCENT_MAP: Record<AccentColor, AccentTheme> = {
+export const ACCENT_MAP: Record<AccentColor, AccentThemeConfig> = {
   match: {
-    name: "Midnight Sapphire",
-    hex: "#818cf8",
-    bgTailwind: "bg-[#818cf8]",
-    textTailwind: "text-[#818cf8]",
-    borderTailwind: "border-[#818cf8]",
-    glowShadow: "rgba(129, 140, 248, 0.5)",
+    hex: "#ff9e3b",
+    textClass: "text-[#ff9e3b]",
+    bgClass: "bg-[#ff9e3b]",
+    borderClass: "border-[#ff9e3b]",
+    glowShadow: "rgba(255, 158, 59, 0.4)",
   },
   amber: {
-    name: "Amber Gold",
     hex: "#ff9e3b",
-    bgTailwind: "bg-[#ff9e3b]",
-    textTailwind: "text-[#ff9e3b]",
-    borderTailwind: "border-[#ff9e3b]",
-    glowShadow: "rgba(255, 158, 59, 0.5)",
+    textClass: "text-[#ff9e3b]",
+    bgClass: "bg-[#ff9e3b]",
+    borderClass: "border-[#ff9e3b]",
+    glowShadow: "rgba(255, 158, 59, 0.4)",
   },
   coral: {
-    name: "Neon Coral",
     hex: "#f43f5e",
-    bgTailwind: "bg-[#f43f5e]",
-    textTailwind: "text-[#f43f5e]",
-    borderTailwind: "border-[#f43f5e]",
-    glowShadow: "rgba(244, 63, 94, 0.5)",
+    textClass: "text-[#f43f5e]",
+    bgClass: "bg-[#f43f5e]",
+    borderClass: "border-[#f43f5e]",
+    glowShadow: "rgba(244, 63, 94, 0.4)",
   },
   cyan: {
-    name: "Electric Cyan",
     hex: "#06b6d4",
-    bgTailwind: "bg-[#06b6d4]",
-    textTailwind: "text-[#06b6d4]",
-    borderTailwind: "border-[#06b6d4]",
-    glowShadow: "rgba(6, 182, 212, 0.5)",
+    textClass: "text-[#06b6d4]",
+    bgClass: "bg-[#06b6d4]",
+    borderClass: "border-[#06b6d4]",
+    glowShadow: "rgba(6, 182, 212, 0.4)",
   },
   purple: {
-    name: "Obsidian Purple",
     hex: "#a855f7",
-    bgTailwind: "bg-[#a855f7]",
-    textTailwind: "text-[#a855f7]",
-    borderTailwind: "border-[#a855f7]",
-    glowShadow: "rgba(168, 85, 247, 0.5)",
+    textClass: "text-[#a855f7]",
+    bgClass: "bg-[#a855f7]",
+    borderClass: "border-[#a855f7]",
+    glowShadow: "rgba(168, 85, 247, 0.4)",
   },
   blue: {
-    name: "Deep Blue",
     hex: "#3b82f6",
-    bgTailwind: "bg-[#3b82f6]",
-    textTailwind: "text-[#3b82f6]",
-    borderTailwind: "border-[#3b82f6]",
-    glowShadow: "rgba(59, 130, 246, 0.5)",
+    textClass: "text-[#3b82f6]",
+    bgClass: "bg-[#3b82f6]",
+    borderClass: "border-[#3b82f6]",
+    glowShadow: "rgba(59, 130, 246, 0.4)",
   },
   green: {
-    name: "Sage Green",
     hex: "#10b981",
-    bgTailwind: "bg-[#10b981]",
-    textTailwind: "text-[#10b981]",
-    borderTailwind: "border-[#10b981]",
-    glowShadow: "rgba(16, 185, 129, 0.5)",
+    textClass: "text-[#10b981]",
+    bgClass: "bg-[#10b981]",
+    borderClass: "border-[#10b981]",
+    glowShadow: "rgba(16, 185, 129, 0.4)",
   },
 };

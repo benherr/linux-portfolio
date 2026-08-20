@@ -45,12 +45,12 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
   const blurPx = Math.round(glassOpacity / 4);
 
   const containerBg = isLight
-    ? `rgba(241, 245, 249, ${opacityFraction})`
-    : `rgba(10, 13, 36, ${opacityFraction})`;
+    ? `rgba(248, 250, 252, ${opacityFraction})`
+    : `rgba(18, 14, 36, ${opacityFraction})`;
 
   const headerBg = isLight
     ? `rgba(226, 232, 240, ${Math.min(1, parseFloat(opacityFraction) + 0.15)})`
-    : `rgba(20, 24, 61, ${Math.min(1, parseFloat(opacityFraction) + 0.15)})`;
+    : `rgba(24, 18, 48, ${Math.min(1, parseFloat(opacityFraction) + 0.15)})`;
 
   return (
     <motion.div
@@ -70,19 +70,19 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
         WebkitBackdropFilter: `blur(${blurPx}px)`,
       }}
       onClick={() => onFocus(windowState.id)}
-      className={`fixed top-9 left-0 flex flex-col rounded-2xl overflow-hidden shadow-2xl border transition-all duration-200 ${
+      className={`fixed top-9 left-0 flex flex-col rounded-xl overflow-hidden shadow-2xl border transition-colors duration-200 ${
         windowState.isMaximized ? "rounded-none top-9" : ""
       } ${
         isLight
           ? "border-slate-300 text-slate-900 shadow-slate-400/30"
-          : "border-indigo-500/30 text-slate-100 shadow-[0_0_40px_rgba(99,102,241,0.2)]"
+          : "border-[#2b2c52] text-slate-100 shadow-black/50"
       }`}
     >
-      {/* Window Title Bar Header & Active Tab Design */}
+      {/* Window Title Bar Header */}
       <div
         style={{ backgroundColor: headerBg }}
         className={`h-9 px-3.5 flex items-center justify-between select-none cursor-grab active:cursor-grabbing border-b transition-colors ${
-          isLight ? "border-slate-300 text-slate-800" : "border-indigo-500/25 text-slate-200"
+          isLight ? "border-slate-300 text-slate-800" : "border-white/10 text-slate-200"
         }`}
         onPointerDown={(e) => {
           onFocus(windowState.id);
@@ -108,15 +108,10 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
           window.addEventListener("pointerup", onPointerUp);
         }}
       >
-        {/* Left: Window Tab Title & Glowing Accent Dot */}
+        {/* Left: Window Title & Accent Dot */}
         <div className="flex items-center space-x-2 truncate">
-          <span
-            style={{ color: accent.hex, filter: `drop-shadow(0 0 6px ${accent.hex})` }}
-            className="text-xs"
-          >
-            ●
-          </span>
-          <span className="text-xs font-mono font-bold tracking-wide truncate text-indigo-100">
+          <span style={{ color: accent.hex }} className="text-xs">●</span>
+          <span className="text-xs font-mono font-bold tracking-wide truncate">
             {windowState.title}
           </span>
         </div>

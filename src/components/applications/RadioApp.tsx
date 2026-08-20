@@ -1,57 +1,48 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Music, FastForward, Rewind } from "lucide-react";
-import { defaultTracklist } from "@/data/music";
+import { Radio as RadioIcon, Play, Pause, SkipForward, Volume2, VolumeX, Disc, Sparkles } from "lucide-react";
 
-const STREAMING_FALLBACK = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3";
+export interface RadioStation {
+  id: string;
+  name: string;
+  genre: string;
+  streamUrl: string;
+  nowPlaying: string;
+}
+
+export const STATIONS: RadioStation[] = [
+  {
+    id: "lofi-chill",
+    name: "Lofi Cyber Beats",
+    genre: "Lo-Fi / Chillhop",
+    streamUrl: "https://stream.zeno.fm/f3wvbbqmdg8uv",
+    nowPlaying: "Midnight Code Session • Lofi Beats",
+  },
+  {
+    id: "synthwave",
+    name: "Synthwave Night Drive",
+    genre: "Retrowave / Synth",
+    streamUrl: "https://stream.zeno.fm/0r0xa792kwzuv",
+    nowPlaying: "Neon Horizon • Synthwave Stream",
+  },
+  {
+    id: "ambient-code",
+    name: "Ambient Focus Stream",
+    genre: "Ambient / Deep Focus",
+    streamUrl: "https://stream.zeno.fm/4b5wv213kg8uv",
+    nowPlaying: "Deep Thought & Flow State • Ambient",
+  },
+];
 
 export const RadioApp: React.FC = () => {
-  const [trackIndex, setTrackIndex] = useState<number>(0);
+  const [currentStationIndex, setCurrentStationIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [volume, setVolume] = useState<number>(0.85);
+  const [volume, setVolume] = useState<number>(0.7);
   const [isMuted, setIsMuted] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [duration, setDuration] = useState<number>(0);
-
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const currentTrack = defaultTracklist[trackIndex] || defaultTracklist[0];
 
-  useEffect(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio(currentTrack.audioUrl);
-    } else {
-      audioRef.current.src = currentTrack.audioUrl;
-    }
-    audioRef.current.volume = isMuted ? 0 : volume;
-
-    const audio = audioRef.current;
-    const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
-    const handleLoadedMetadata = () => setDuration(audio.duration || 0);
-    const handleEnded = () => setTrackIndex((prev) => (prev + 1) % defaultTracklist.length);
-    const handleError = () => {
-      if (audio.src !== STREAMING_FALLBACK) {
-        audio.src = STREAMING_FALLBACK;
-        if (isPlaying) audio.play().catch(() => {});
-      }
-    };
-
-    audio.addEventListener("timeupdate", handleTimeUpdate);
-    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
-    audio.addEventListener("ended", handleEnded);
-    audio.addEventListener("error", handleError);
-
-    if (isPlaying) {
-      audio.play().catch(() => setIsPlaying(false));
-    }
-
-    return () => {
-      audio.removeEventListener("timeupdate", handleTimeUpdate);
-      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      audio.removeEventListener("ended", handleEnded);
-      audio.removeEventListener("error", handleError);
-    };
-  }, [trackIndex]);
+  const activeStation = STATIONS[currentStationIndex];
 
   useEffect(() => {
     if (audioRef.current) {
@@ -65,139 +56,138 @@ export const RadioApp: React.FC = () => {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      audioRef.current.play().catch(() => {});
+      setIsPlaying(true);
     }
   };
 
-  const formatTime = (secs: number) => {
-    if (isNaN(secs)) return "0:00";
-    const mins = Math.floor(secs / 60);
-    const remainder = Math.floor(secs % 60);
-    return `${mins}:${remainder < 10 ? "0" : ""}${remainder}`;
+  const nextStation = () => {
+    const nextIdx = (currentStationIndex + 1) % STATIONS.length;
+    setCurrentStationIndex(nextIdx);
+    setIsPlaying(false);
+    setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.play().catch(() => {});
+        setIsPlaying(true);
+      }
+    }, 200);
   };
 
   return (
-    <div className="h-full flex flex-col justify-between p-6 bg-gradient-to-br from-[#0a0d24] via-[#121638] to-[#070915] text-slate-100 font-sans select-none overflow-y-auto">
-      {/* Header */}
-      <div className="flex justify-between items-center border-b border-indigo-500/20 pb-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-2xl bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-indigo-300 font-bold">
-            <Music className="w-5 h-5 animate-pulse" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold font-mono text-white">NinjaOS Audio Studio</h1>
-            <p className="text-xs text-indigo-300 font-mono">Custom MP3 Audio & Lofi Streams</p>
-          </div>
+    <div className="p-4 sm:p-6 space-y-6 text-slate-200 font-sans select-none">
+      {/* Hidden HTML5 Audio element */}
+      <audio ref={audioRef} src={activeStation.streamUrl} preload="none" />
+
+      {/* Radio Header */}
+      <div className="flex items-center space-x-3 p-4 rounded-xl bg-[#13142e] border border-[#2b2c52] shadow-2xl">
+        <div className="w-12 h-12 rounded-xl bg-[#1d1e42] border border-[#e2b714]/40 flex items-center justify-center text-[#e2b714] shrink-0 shadow-[0_0_15px_rgba(226,183,20,0.2)]">
+          <RadioIcon className="w-6 h-6 animate-pulse" />
         </div>
-        <span className="text-xs font-mono px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300">
-          Stereo High Fidelity
-        </span>
+        <div>
+          <h1 className="text-base sm:text-lg font-bold text-white font-mono">
+            NinjaOS Radio Player
+          </h1>
+          <p className="text-xs text-slate-400">Curated background Lo-Fi & Synthwave audio streams</p>
+        </div>
       </div>
 
-      {/* Main Track Visualizer Card */}
-      <div className="my-auto py-6 max-w-xl mx-auto w-full bg-[#121638]/80 border border-indigo-500/30 rounded-3xl p-6 shadow-2xl backdrop-blur-xl space-y-6">
-        <div className="text-center space-y-2">
-          <div className="w-24 h-24 mx-auto rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-600 p-1 shadow-[0_0_30px_rgba(99,102,241,0.4)]">
-            <div className="w-full h-full rounded-[22px] bg-[#0d1027] flex items-center justify-center">
-              <Music className={`w-10 h-10 text-indigo-400 ${isPlaying ? "animate-spin" : ""}`} />
-            </div>
+      {/* Main Player Display Card */}
+      <div className="p-6 rounded-2xl bg-gradient-to-b from-[#181a3d] to-[#11122a] border border-[#2b2c52] shadow-2xl space-y-6">
+        {/* Spinning Vinyl Visualizer */}
+        <div className="flex flex-col items-center justify-center space-y-3 py-4">
+          <div
+            className={`w-28 h-28 rounded-full border-4 border-[#2b2c52] bg-[#0b0d1e] flex items-center justify-center shadow-2xl relative ${
+              isPlaying ? "animate-spin-slow" : ""
+            }`}
+          >
+            <Disc className="w-16 h-16 text-[#e2b714]" />
+            <div className="w-6 h-6 rounded-full bg-[#181a3d] border-2 border-[#e2b714] absolute" />
           </div>
-          <h2 className="text-xl font-bold font-mono text-white pt-2">{currentTrack.title}</h2>
-          <p className="text-xs text-indigo-300 font-mono">{currentTrack.artist}</p>
-        </div>
-
-        {/* Progress Slider */}
-        <div className="space-y-1">
-          <input
-            type="range"
-            min="0"
-            max={duration || 100}
-            value={currentTime}
-            onChange={(e) => {
-              const newT = parseFloat(e.target.value);
-              setCurrentTime(newT);
-              if (audioRef.current) audioRef.current.currentTime = newT;
-            }}
-            className="w-full h-1.5 bg-slate-700 rounded-lg appearance-none accent-indigo-400 cursor-pointer"
-          />
-          <div className="flex justify-between text-xs font-mono text-slate-400">
-            <span>{formatTime(currentTime)}</span>
-            <span>{formatTime(duration)}</span>
+          <div className="text-center space-y-1">
+            <h2 className="text-base font-bold text-white font-mono">{activeStation.name}</h2>
+            <p className="text-xs text-[#e2b714] font-mono">{activeStation.genre}</p>
+            <p className="text-[11px] text-slate-400 font-sans italic">{activeStation.nowPlaying}</p>
           </div>
         </div>
 
-        {/* Main Controls */}
-        <div className="flex items-center justify-center space-x-4">
-          <button
-            onClick={() => audioRef.current && (audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 10))}
-            className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition cursor-pointer"
-            title="Rewind 10s"
-          >
-            <Rewind className="w-4 h-4" />
-          </button>
-
-          <button
-            onClick={() => setTrackIndex((prev) => (prev - 1 + defaultTracklist.length) % defaultTracklist.length)}
-            className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition cursor-pointer"
-            title="Previous Track"
-          >
-            <SkipBack className="w-5 h-5" />
-          </button>
-
+        {/* Playback Controls */}
+        <div className="flex items-center justify-center space-x-6 pt-2">
           <button
             onClick={togglePlay}
-            className="p-4 rounded-full bg-indigo-500 hover:bg-indigo-400 text-slate-950 shadow-[0_0_20px_rgba(99,102,241,0.6)] transition transform active:scale-95 cursor-pointer"
+            className="w-14 h-14 rounded-full bg-[#e2b714] hover:bg-[#f5c623] text-[#0b0d1e] font-bold flex items-center justify-center shadow-[0_0_20px_rgba(226,183,20,0.4)] transition transform active:scale-95 cursor-pointer"
           >
-            {isPlaying ? <Pause className="w-6 h-6 fill-slate-950" /> : <Play className="w-6 h-6 fill-slate-950 ml-0.5" />}
+            {isPlaying ? <Pause className="w-6 h-6 fill-current" /> : <Play className="w-6 h-6 fill-current ml-1" />}
           </button>
 
           <button
-            onClick={() => setTrackIndex((prev) => (prev + 1) % defaultTracklist.length)}
-            className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition cursor-pointer"
-            title="Next Track"
+            onClick={nextStation}
+            className="p-3 rounded-full bg-[#1d1e42] hover:bg-[#282a5c] border border-[#2b2c52] text-slate-300 hover:text-white transition cursor-pointer"
+            title="Next Station"
           >
             <SkipForward className="w-5 h-5" />
           </button>
-
-          <button
-            onClick={() => audioRef.current && (audioRef.current.currentTime = Math.min(duration, audioRef.current.currentTime + 10))}
-            className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition cursor-pointer"
-            title="Fast Forward 10s"
-          >
-            <FastForward className="w-4 h-4" />
-          </button>
         </div>
 
-        {/* Playlist selection */}
-        <div className="space-y-2 pt-2 border-t border-white/10">
-          <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">
-            Available Tracks
-          </div>
-          <div className="space-y-1.5 max-h-32 overflow-y-auto scrollbar-thin">
-            {defaultTracklist.map((tr, idx) => (
-              <button
-                key={tr.id}
-                onClick={() => {
-                  setTrackIndex(idx);
-                  setIsPlaying(true);
-                }}
-                className={`w-full p-2 rounded-xl text-left font-mono text-xs flex justify-between items-center transition ${
-                  trackIndex === idx
-                    ? "bg-indigo-500/25 border border-indigo-500/50 text-indigo-200"
-                    : "hover:bg-white/5 text-slate-300"
-                }`}
-              >
-                <span>{idx + 1}. {tr.title} — {tr.artist}</span>
-                <span className="text-[11px] text-slate-500">{tr.duration}</span>
-              </button>
-            ))}
-          </div>
+        {/* Volume Slider */}
+        <div className="flex items-center space-x-3 pt-2 max-w-xs mx-auto text-slate-400">
+          <button onClick={() => setIsMuted(!isMuted)} className="hover:text-white transition cursor-pointer">
+            {isMuted || volume === 0 ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-[#e2b714]" />}
+          </button>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.05"
+            value={isMuted ? 0 : volume}
+            onChange={(e) => {
+              setVolume(parseFloat(e.target.value));
+              setIsMuted(false);
+            }}
+            className="w-full h-1.5 bg-[#0b0d1e] rounded-lg appearance-none cursor-pointer accent-[#e2b714]"
+          />
         </div>
       </div>
 
-      {/* Footer Instructions */}
-      <div className="text-center text-xs font-mono text-slate-500">
-        To add your own MP3 songs, place files inside <code className="text-indigo-400">public/music/song1.mp3</code>
+      {/* Station List */}
+      <div className="space-y-2">
+        <h3 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
+          Available Stations
+        </h3>
+        <div className="space-y-1.5">
+          {STATIONS.map((st, idx) => (
+            <button
+              key={st.id}
+              onClick={() => {
+                setCurrentStationIndex(idx);
+                setIsPlaying(false);
+                setTimeout(() => {
+                  if (audioRef.current) {
+                    audioRef.current.play().catch(() => {});
+                    setIsPlaying(true);
+                  }
+                }, 200);
+              }}
+              className={`w-full p-3 rounded-xl border flex items-center justify-between transition text-left cursor-pointer ${
+                currentStationIndex === idx
+                  ? "bg-[#1d1e42] border-[#e2b714]/60 text-white shadow-glow-gold"
+                  : "bg-[#13142e]/60 border-[#2b2c52] hover:bg-[#181a3d] text-slate-300"
+              }`}
+            >
+              <div className="flex items-center space-x-3">
+                <RadioIcon className={`w-4 h-4 ${currentStationIndex === idx ? "text-[#e2b714]" : "text-slate-500"}`} />
+                <div>
+                  <div className="text-xs font-bold font-mono">{st.name}</div>
+                  <div className="text-[10px] text-slate-400">{st.genre}</div>
+                </div>
+              </div>
+              {currentStationIndex === idx && isPlaying && (
+                <span className="text-[10px] font-mono text-[#e2b714] bg-[#e2b714]/10 border border-[#e2b714]/40 px-2 py-0.5 rounded">
+                  PLAYING
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
