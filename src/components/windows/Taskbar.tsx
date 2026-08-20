@@ -52,7 +52,8 @@ export const Taskbar: React.FC<TaskbarProps> = ({
                 onFocus(win.id);
               }
             }}
-            className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-xs font-mono transition cursor-pointer shrink-0 ${
+            title={win.title}
+            className={`flex items-center space-x-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-[10px] sm:text-xs font-mono transition cursor-pointer shrink-0 ${
               isActive
                 ? "bg-ninja-surface border border-ninja-cyan text-white shadow-glow"
                 : win.isMinimized
@@ -60,8 +61,8 @@ export const Taskbar: React.FC<TaskbarProps> = ({
                 : "bg-ninja-dark/80 text-slate-300 hover:bg-ninja-surface hover:text-white border border-ninja-border/50"
             }`}
           >
-            <Icon className={`w-3.5 h-3.5 ${isActive ? "text-ninja-cyan" : "text-slate-400"}`} />
-            <span className="max-w-[100px] sm:max-w-[130px] truncate text-[11px] font-semibold">{win.title}</span>
+            <Icon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${isActive ? "text-ninja-cyan" : "text-slate-400"}`} />
+            <span className="max-w-[65px] xs:max-w-[90px] sm:max-w-[120px] truncate text-[10px] sm:text-[11px] font-semibold">{win.title}</span>
             <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-ninja-cyan animate-pulse" : win.isMinimized ? "bg-slate-600" : "bg-emerald-500"}`} />
           </button>
         );

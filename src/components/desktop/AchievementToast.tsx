@@ -22,7 +22,7 @@ export const AchievementToast: React.FC<AchievementToastProps> = ({
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: -20, scale: 0.95 }}
         transition={{ duration: 0.25 }}
-        className="fixed top-12 left-1/2 -translate-x-1/2 z-[300] bg-ninja-panel/95 border border-amber-500/40 rounded-xl p-3.5 shadow-[0_8px_32px_rgba(245,158,11,0.2)] backdrop-blur-md flex items-center space-x-3.5 max-w-sm w-full select-none"
+        className="fixed top-12 left-1/2 -translate-x-1/2 z-[300] bg-ninja-panel/95 border border-amber-500/40 rounded-xl p-3 sm:p-3.5 shadow-[0_8px_32px_rgba(245,158,11,0.2)] backdrop-blur-md flex items-center space-x-3 sm:space-x-3.5 w-[92vw] sm:w-auto max-w-sm select-none"
       >
         <div className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/60 flex items-center justify-center text-amber-400 shrink-0 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
           <Star className="w-5 h-5 fill-amber-400" />
