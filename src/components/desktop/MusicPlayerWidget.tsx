@@ -13,6 +13,7 @@ import {
   X,
   RotateCcw,
   RotateCw,
+  GripHorizontal,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TRACK_LIST, Track } from "@/data/music";
@@ -108,20 +109,26 @@ export const MusicPlayerWidget: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            drag
+            dragMomentum={false}
+            dragElastic={0.05}
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="fixed top-14 left-1/2 -translate-x-1/2 sm:absolute sm:top-10 sm:left-auto sm:right-0 sm:translate-x-0 z-[250] w-[92vw] sm:w-84 max-w-sm sm:max-w-none bg-[#120e24]/95 border border-[#2b2c52] rounded-2xl p-4 shadow-2xl backdrop-blur-md text-slate-200 font-sans select-none space-y-3.5"
+            style={{ touchAction: "none" }}
+            className="fixed top-14 left-1/2 -translate-x-1/2 z-[250] w-[92vw] sm:w-84 max-w-sm bg-[#120e24]/95 border border-[#2b2c52] rounded-2xl p-4 shadow-2xl backdrop-blur-md text-slate-200 font-sans select-none space-y-3.5 cursor-grab active:cursor-grabbing touch-none"
           >
             {/* Widget Header */}
-            <div className="flex justify-between items-center border-b border-[#2b2c52] pb-2.5">
+            <div className="flex justify-between items-center border-b border-[#2b2c52] pb-2.5 cursor-grab active:cursor-grabbing">
               <div className="flex items-center space-x-2">
+                <GripHorizontal className="w-4 h-4 text-slate-400" />
                 <Music className="w-4 h-4 text-[#e2b714]" />
                 <span className="font-bold text-xs text-white font-mono">NinjaOS Music Player</span>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
+                onPointerDown={(e) => e.stopPropagation()}
                 className="text-slate-400 hover:text-white p-0.5 rounded hover:bg-slate-800 transition cursor-pointer"
               >
                 <X className="w-4 h-4" />
